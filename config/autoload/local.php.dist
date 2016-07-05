@@ -12,4 +12,8 @@
  */
 
 return [
+	'db' => array(
+		'username' => 'theo',
+		'password' => 'theo',
+	),
 ];

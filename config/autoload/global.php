@@ -12,5 +12,8 @@
  */
 
 return [
-    // ...
+    'db' => [
+        'driver' => 'Pdo',
+        'dsn'    => 'mysql:dbname=agora;host=localhost',
+    ],
 ];
