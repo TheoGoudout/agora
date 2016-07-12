@@ -17,10 +17,11 @@ return [
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route'    => '/:lang/application[/:action]',
                     'defaults' => [
-                        'controller'    => Controller\IndexController::class,
-                        'action'        => 'index',
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'index',
+                        'lang'       => 'en_US',
                     ],
                 ],
             ],

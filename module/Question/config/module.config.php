@@ -8,9 +8,12 @@ return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => Literal::class,
+                'type' => 'segment',
                 'options' => [
-                    'route'    => '/',
+                    'route'    => '/[:lang]',
+                    'constraints' => [
+                        'lang'   => '[a-z]{2}_[A-Z]{2}'
+                    ],
                     'defaults' => [
                         'controller' => Controller\QuestionController::class,
                         'action'     => 'index',
@@ -21,7 +24,7 @@ return [
             'question' => [
                 'type'    => 'segment',
                 'options' => [
-                    'route'    => '/question/:lang[/:action[/:id]]',
+                    'route'    => '/:lang/question[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
@@ -39,16 +42,6 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             'question' => __DIR__ . '/../view',
-        ],
-    ],
-    'translator' => [
-        'locale' => 'en_US',
-        'translation_file_patterns' => [
-            [
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ .  '/../language',
-                'pattern'  => '%s.mo',
-            ],
         ],
     ],
 ];
