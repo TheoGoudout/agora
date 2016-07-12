@@ -19,7 +19,7 @@ class Question
         $this->title = (!empty($data['title'])) ? $data['title'] : null;
     }
 
-	public function getArrayCopy()
+    public function getArrayCopy()
     {
         return [
             'id'     => $this->id,
@@ -27,7 +27,7 @@ class Question
         ];
     }
 
-	public function setInputFilter(InputFilterInterface $inputFilter)
+    public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new DomainException(sprintf(
             '%s does not allow injection of an alternate input filter',

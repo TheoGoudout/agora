@@ -8,7 +8,7 @@ $this->headTitle($title);
 <h1><?= $this->escapeHtml($title) ?></h1>
 
 <p>
-	<?= sprintf($this->translate('Are you sure that you want to delete "%s" ?'), $this->escapeHtml($question->title)); ?>
+    <?= sprintf($this->translate('Are you sure that you want to delete "%s" ?'), $this->escapeHtml($question->title)); ?>
 </p>
 
 <form action="<?= $url ?>" method="post">
