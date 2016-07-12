@@ -1,5 +1,5 @@
 <?php
-$title = 'Add new question';
+$title = $this->translate('Add new question');
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
@@ -7,13 +7,13 @@ $this->headTitle($title);
 // This provides a default CSS class and placeholder text for the title element:
 $question = $form->get('title');
 $question->setAttribute('class', 'form-control');
-$question->setAttribute('placeholder', 'Question title');
+$question->setAttribute('placeholder', $this->translate('Question title'));
 
 // This provides CSS classes for the submit button:
 $submit = $form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary');
 
-$form->setAttribute('action', $this->url('question', ['action' => 'add']));
+$form->setAttribute('action', $this->url('question', ['action' => 'add'], [], true));
 $form->prepare();
 
 echo $this->form()->openTag($form);

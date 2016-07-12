@@ -1,25 +1,25 @@
 <?php
 
-$title = 'My questions';
+$title = $this->translate('My questions');
 $this->headTitle($title);
 ?>
 
 <h1><?= $this->escapeHtml($title); ?></h1>
 <p>
-    <a href="<?= $this->url('question', ['action'=>'add']) ?>">Add new question</a>
+    <a href="<?= $this->url('question', ['action'=>'add'], [], true) ?>"><?= $this->translate('Add new question'); ?></a>
 </p>
 
 <table class="table">
 <tr>
-    <th>Title</th>
+    <th><?php echo $this->translate('Title'); ?></th>
     <th>&nbsp;</th>
 </tr>
 <?php foreach ($questions as $question) : ?>
 <tr>
     <td><?= $this->escapeHtml($question->title) ?></td>
     <td>
-        <a href="<?= $this->url('question', ['action'=>'edit', 'id' => $question->id]) ?>">Edit</a>
-        <a href="<?= $this->url('question', ['action'=>'delete', 'id' => $question->id]) ?>">Delete</a>
+        <a href="<?= $this->url('question', ['action'=>'edit', 'id' => $question->id], [], true) ?>"><?= $this->translate('Edit'); ?></a>
+        <a href="<?= $this->url('question', ['action'=>'delete', 'id' => $question->id], [], true) ?>"><?= $this->translate('Delete'); ?></a>
     </td>
 </tr>
 <?php endforeach; ?>
