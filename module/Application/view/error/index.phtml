@@ -8,15 +8,15 @@
 <h2><?= $this->translate('Additional information:'); ?></h2>
 <h3><?= get_class($this->exception) ?></h3>
 <dl>
-    <dt>File:</dt>
+    <dt><?= $this->translate('File:'); ?></dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->exception->getFile() ?>:<?= $this->exception->getLine() ?></pre>
     </dd>
-    <dt>Message:</dt>
+    <dt><?= $this->translate('Message:'); ?></dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->escapeHtml($this->exception->getMessage()) ?></pre>
     </dd>
-    <dt>Stack trace:</dt>
+    <dt><?= $this->translate('Stack trace:'); ?></dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->escapeHtml($this->exception->getTraceAsString()) ?></pre>
     </dd>
@@ -33,15 +33,15 @@
     <li>
         <h3><?= get_class($e) ?></h3>
         <dl>
-            <dt>File:</dt>
+            <dt><?= $this->translate('File:'); ?></dt>
             <dd>
                 <pre class="prettyprint linenums"><?= $e->getFile() ?>:<?= $e->getLine() ?></pre>
             </dd>
-            <dt>Message:</dt>
+            <dt><?= $this->translate('Message:'); ?></dt>
             <dd>
                 <pre class="prettyprint linenums"><?= $this->escapeHtml($e->getMessage()) ?></pre>
             </dd>
-            <dt>Stack trace:</dt>
+            <dt><?= $this->translate('Stack trace:'); ?></dt>
             <dd>
                 <pre class="prettyprint linenums"><?= $this->escapeHtml($e->getTraceAsString()) ?></pre>
             </dd>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: agora\n"
-"POT-Creation-Date: 2016-07-12 18:41+0200\n"
-"PO-Revision-Date: 2016-07-12 18:41+0200\n"
+"POT-Creation-Date: 2016-07-12 18:54+0200\n"
+"PO-Revision-Date: 2016-07-12 18:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -15,11 +15,11 @@ msgstr ""
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: module/Question/src/Controller/QuestionController.php:82
+#: module/Question/src/Controller/QuestionController.php:84
 msgid "Add"
 msgstr "Ajouter"
 
-#: module/Question/src/Controller/QuestionController.php:122
+#: module/Question/src/Controller/QuestionController.php:124
 #: module/Question/view/question/question/index.phtml:22
 msgid "Edit"
 msgstr "Editer"
@@ -79,6 +79,21 @@ msgstr "Une erreur est survenue"
 #: module/Application/view/error/index.phtml:8
 msgid "Additional information:"
 msgstr "Informations additionnelles:"
+
+#: module/Application/view/error/index.phtml:11
+#: module/Application/view/error/index.phtml:36
+msgid "File:"
+msgstr "Fichier:"
+
+#: module/Application/view/error/index.phtml:15
+#: module/Application/view/error/index.phtml:40
+msgid "Message:"
+msgstr "Message:"
+
+#: module/Application/view/error/index.phtml:19
+#: module/Application/view/error/index.phtml:44
+msgid "Stack trace:"
+msgstr "Trace de la pile:"
 
 #: module/Application/view/error/index.phtml:30
 msgid "Previous exceptions:"
