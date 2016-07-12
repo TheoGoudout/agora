@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: agora\n"
-"POT-Creation-Date: 2016-07-12 18:21+0200\n"
-"PO-Revision-Date: 2016-07-12 18:23+0200\n"
+"POT-Creation-Date: 2016-07-12 18:41+0200\n"
+"PO-Revision-Date: 2016-07-12 18:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -119,9 +119,13 @@ msgstr "Réponses pour \"%s\""
 msgid "Return to question list"
 msgstr "Retour à la liste des questions"
 
-#: module/Question/view/question/question/answer.phtml:14
+#: module/Question/view/question/question/answer.phtml:15
 msgid "Answer title"
 msgstr "Titre de la réponse"
+
+#: module/Question/view/question/question/answer.phtml:26
+msgid "No answer found for this question"
+msgstr "Aucune réponse trouvée pour cette question"
 
 #: module/Question/view/question/question/delete.phtml:3
 msgid "Delete question"

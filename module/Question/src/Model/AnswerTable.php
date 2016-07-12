@@ -4,17 +4,13 @@ namespace Question\Model;
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
-class QuestionTable
+class AnswerTable
 {
     private $tableGateway;
-    private $answerTable;
 
-    public function __construct(
-        TableGatewayInterface $tableGateway,
-        AnswerTable $answerTable)
+    public function __construct(TableGatewayInterface $tableGateway)
     {
         $this->tableGateway = $tableGateway;
-        $this->answerTable  = $answerTable;
     }
 
     public function fetchAll()
@@ -22,12 +18,7 @@ class QuestionTable
         return $this->tableGateway->select();
     }
 
-    public function fetchAnswers($id)
-    {
-        return $this->answerTable->getAnswers($id);
-    }
-
-    public function getQuestion($id)
+    public function getAnswer($id)
     {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(['id' => $id]);
@@ -42,22 +33,29 @@ class QuestionTable
         return $row;
     }
 
-    public function saveQuestion(Question $question)
+    public function getAnswers($qid)
+    {
+        $qid = (int) $qid;
+        return $this->tableGateway->select(['qid' => $qid]);
+    }
+
+    public function saveAnswer(Answer $answer)
     {
         $data = [
-            'title'  => $question->title,
+            'qid'    => $answer->qid,
+            'title'  => $answer->title,
         ];
 
-        $id = (int) $question->id;
+        $id = (int) $answer->id;
 
         if ($id === 0) {
             $this->tableGateway->insert($data);
             return;
         }
 
-        if (! $this->getQuestion($id)) {
+        if (! $this->getAnswer($id)) {
             throw new RuntimeException(sprintf(
-                'Cannot update question with identifier %d; does not exist',
+                'Cannot update answer with identifier %d; does not exist',
                 $id
             ));
         }
@@ -65,7 +63,7 @@ class QuestionTable
         $this->tableGateway->update($data, ['id' => $id]);
     }
 
-    public function deleteQuestion($id)
+    public function deleteAnswer($id)
     {
         $this->tableGateway->delete(['id' => (int) $id]);
     }

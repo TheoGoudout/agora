@@ -19,14 +19,28 @@ class Module implements ConfigProviderInterface
         return [
             'factories' => [
                 Model\QuestionTable::class =>  function($container) {
-                    $tableGateway = $container->get(Model\QuestionTableGateway::class);
-                    return new Model\QuestionTable($tableGateway);
+                    return new Model\QuestionTable(
+                        $container->get(Model\QuestionTableGateway::class),
+                        $container->get(Model\AnswerTable::class)
+                    );
                 },
                 Model\QuestionTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Question());
                     return new TableGateway('question', $dbAdapter, null, $resultSetPrototype);
+                },
+
+                Model\AnswerTable::class =>  function($container) {
+                    return new Model\AnswerTable(
+                        $container->get(Model\AnswerTableGateway::class)
+                    );
+                },
+                Model\AnswerTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Answer());
+                    return new TableGateway('answer', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];

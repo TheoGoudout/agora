@@ -56,6 +56,26 @@ class QuestionController extends AbstractActionController
         ]);
     }
 
+    public function answerAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+
+        if (0 === $id) {
+            return $this->redirectToRoute('question');
+        }
+
+        try {
+            $question = $this->table()->getQuestion($id);
+        } catch (\Exception $e) {
+            return $this->redirectToRoute('question');
+        }
+
+        return new ViewModel([
+            'answers'  => $this->table()->fetchAnswers($id),
+            'question' => $question,
+        ]);
+    }
+
     public function addAction()
     {
         $form = new QuestionForm();
