@@ -1,5 +1,6 @@
 <?php
-namespace Question\Model;
+
+namespace Answer\Model;
 
 use DomainException;
 use Zend\InputFilter\InputFilter;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Question\Model;
 
 use DomainException;

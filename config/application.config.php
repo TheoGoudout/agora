@@ -7,7 +7,7 @@
  */
 return [
     // Retrieve list of modules used in this application.
-    'modules' => require __DIR__ . '/modules.config.php',
+    'modules' => require realpath(__DIR__) . '/modules.config.php',
 
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => [
@@ -16,8 +16,8 @@ return [
         // namespace, the value of that key the specific path to that module's
         // Module class.
         'module_paths' => [
-            './module',
-            './vendor',
+            realpath(__DIR__) . '/../module',
+            realpath(__DIR__) . '/../vendor',
         ],
 
         // An array of paths from which to glob configuration files after
@@ -44,7 +44,7 @@ return [
         'module_map_cache_key' => 'application.module.cache',
 
         // The path in which to cache merged configuration.
-        'cache_dir' => 'data/cache/',
+        'cache_dir' => realpath(__DIR__) . '/../data/cache/',
 
         // Whether or not to enable modules dependency checking.
         // Enabled by default, prevents usage of modules that depend on other modules

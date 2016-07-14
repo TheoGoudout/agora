@@ -1,5 +1,6 @@
 <?php
-namespace Question\Model;
+
+namespace Answer\Model;
 
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
@@ -7,15 +8,27 @@ use Zend\Db\TableGateway\TableGatewayInterface;
 class AnswerTable
 {
     private $tableGateway;
+    private $questionTable;
 
-    public function __construct(TableGatewayInterface $tableGateway)
+    public function __construct(
+        TableGatewayInterface $tableGateway,
+        \Question\Model\QuestionTable $questionTable)
     {
         $this->tableGateway = $tableGateway;
+        $this->questionTable  = $questionTable;
     }
 
-    public function fetchAll()
+    public function fetchQuestion($qid)
     {
-        return $this->tableGateway->select();
+        return $this->questionTable->getQuestion($qid);
+    } 
+
+    public function fetchQuestionAnswers($qid)
+    {
+        return [
+            'question' => $this->questionTable->getQuestion($qid),
+            'answers'  => $this->tableGateway->select(),
+        ];
     }
 
     public function getAnswer($id)
@@ -31,12 +44,6 @@ class AnswerTable
         }
 
         return $row;
-    }
-
-    public function getAnswers($qid)
-    {
-        $qid = (int) $qid;
-        return $this->tableGateway->select(['qid' => $qid]);
     }
 
     public function saveAnswer(Answer $answer)

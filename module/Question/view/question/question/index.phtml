@@ -18,7 +18,7 @@ $this->headTitle($title);
 <tr>
     <td><?= $this->escapeHtml($question->title) ?></td>
     <td>
-        <a href="<?= $this->url('question', ['action'=>'answer', 'id' => $question->id], [], true) ?>"><?= $this->translate('Answer'); ?></a>
+        <a href="<?= $this->url('answer', ['action'=>'index', 'qid' => $question->id], [], true) ?>"><?= $this->translate('Answer'); ?></a>
         <a href="<?= $this->url('question', ['action'=>'edit', 'id' => $question->id], [], true) ?>"><?= $this->translate('Edit'); ?></a>
         <a href="<?= $this->url('question', ['action'=>'delete', 'id' => $question->id], [], true) ?>"><?= $this->translate('Delete'); ?></a>
     </td>

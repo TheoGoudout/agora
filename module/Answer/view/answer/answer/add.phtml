@@ -1,0 +1,39 @@
+<?php
+
+$title = sprintf($this->translate('Add new answer to "%s"'), $question->title);
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+// This provides a default CSS class and placeholder text for the title element:
+$answer = $form->get('title');
+$answer->setAttribute('class', 'form-control');
+$answer->setAttribute('placeholder', $this->translate('Answer title'));
+
+// This provides CSS classes for the submit button:
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$id = $form->get('id');
+
+$qid = $form->get('qid');
+$qid->setValue($question->id);
+
+$form->setAttribute('action', $this->url('answer', ['action' => 'add'], [], true));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<?php // Wrap the elements in divs marked as form groups, and render the
+      // label, element, and errors separately within ?>
+<div class="form-group">
+    <?= $this->formLabel($answer) ?>
+    <?= $this->formElement($answer) ?>
+    <?= $this->formElementErrors()->render($answer, ['class' => 'help-block']) ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($id);
+echo $this->formHidden($qid);
+echo $this->form()->closeTag();

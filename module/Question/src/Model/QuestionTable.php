@@ -1,4 +1,5 @@
 <?php
+
 namespace Question\Model;
 
 use RuntimeException;
@@ -7,24 +8,15 @@ use Zend\Db\TableGateway\TableGatewayInterface;
 class QuestionTable
 {
     private $tableGateway;
-    private $answerTable;
 
-    public function __construct(
-        TableGatewayInterface $tableGateway,
-        AnswerTable $answerTable)
+    public function __construct(TableGatewayInterface $tableGateway)
     {
         $this->tableGateway = $tableGateway;
-        $this->answerTable  = $answerTable;
     }
 
     public function fetchAll()
     {
         return $this->tableGateway->select();
-    }
-
-    public function fetchAnswers($id)
-    {
-        return $this->answerTable->getAnswers($id);
     }
 
     public function getQuestion($id)

@@ -1,18 +1,19 @@
 <?php
+
 namespace Question;
 
-use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => 'segment',
+                'type' => Segment::class,
                 'options' => [
                     'route'    => '/[:lang]',
                     'constraints' => [
-                        'lang'   => '[a-z]{2}_[A-Z]{2}'
+                        'lang'   => '[a-z]{2}_[A-Z]{2}',
                     ],
                     'defaults' => [
                         'controller' => Controller\QuestionController::class,
@@ -28,12 +29,11 @@ return [
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
-                        'lang'   => '[a-z]{2}_[A-Z]{2}'
+                        'lang'   => '[a-z]{2}_[A-Z]{2}',
                     ],
                     'defaults' => [
                         'controller' => Controller\QuestionController::class,
                         'action'     => 'index',
-                        'lang'       => 'en_US',
                     ],
                 ],
             ],

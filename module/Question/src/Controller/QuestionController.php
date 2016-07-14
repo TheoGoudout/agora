@@ -1,4 +1,5 @@
 <?php
+
 namespace Question\Controller;
 
 use Question\Form\QuestionForm;
@@ -56,7 +57,7 @@ class QuestionController extends AbstractActionController
         ]);
     }
 
-    public function answerAction()
+    public function addAnswerAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
 
@@ -74,6 +75,7 @@ class QuestionController extends AbstractActionController
             'answers'  => $this->table()->fetchAnswers($id),
             'question' => $question,
         ]);
+
     }
 
     public function addAction()

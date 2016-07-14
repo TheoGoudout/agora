@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: agora\n"
-"POT-Creation-Date: 2016-07-12 18:54+0200\n"
-"PO-Revision-Date: 2016-07-12 18:57+0200\n"
+"POT-Creation-Date: 2016-07-14 16:11+0200\n"
+"PO-Revision-Date: 2016-07-14 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -15,14 +15,71 @@ msgstr ""
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: module/Answer/src/Controller/AnswerController.php:86
 #: module/Question/src/Controller/QuestionController.php:84
 msgid "Add"
 msgstr "Ajouter"
 
+#: module/Answer/src/Controller/AnswerController.php:148
 #: module/Question/src/Controller/QuestionController.php:124
+#: module/Answer/view/answer/answer/index.phtml:21
 #: module/Question/view/question/question/index.phtml:22
 msgid "Edit"
 msgstr "Editer"
+
+#: module/Answer/view/answer/answer/add.phtml:3
+#, php-format
+msgid "Add new answer to \"%s\""
+msgstr "Ajouter une nouvelle réponse pour \"%s\""
+
+#: module/Answer/view/answer/answer/add.phtml:11
+msgid "Answer title"
+msgstr "Titre de la réponse"
+
+#: module/Answer/view/answer/answer/delete.phtml:3
+#, php-format
+msgid "Delete answer for \"%s\""
+msgstr "Supprimer une réponse our \"%s\""
+
+#: module/Answer/view/answer/answer/delete.phtml:15
+#: module/Question/view/question/question/delete.phtml:11
+#, php-format
+msgid "Are you sure that you want to delete \"%s\" ?"
+msgstr "Etês-vous sur de vouloir supprimer \"%s\" ?"
+
+#: module/Answer/view/answer/answer/delete.phtml:22
+#: module/Question/view/question/question/delete.phtml:17
+msgid "Yes"
+msgstr "Oui"
+
+#: module/Answer/view/answer/answer/delete.phtml:23
+#: module/Question/view/question/question/delete.phtml:18
+msgid "No"
+msgstr "Non"
+
+#: module/Answer/view/answer/answer/edit.phtml:3
+#, php-format
+msgid "Edit answer for \"%s\""
+msgstr "Modifier une réponse pour \"%s\""
+
+#: module/Answer/view/answer/answer/index.phtml:3
+#, php-format
+msgid "Answers to \"%s\""
+msgstr "Répondre à \"%s\""
+
+#: module/Answer/view/answer/answer/index.phtml:9
+msgid "Add new answer"
+msgstr "Ajouter une nouvelle réponse"
+
+#: module/Answer/view/answer/answer/index.phtml:14
+#: module/Question/view/question/question/index.phtml:14
+msgid "Title"
+msgstr "Titre"
+
+#: module/Answer/view/answer/answer/index.phtml:22
+#: module/Question/view/question/question/index.phtml:23
+msgid "Delete"
+msgstr "Supprimer"
 
 #: module/Application/view/error/404.phtml:1
 msgid "A 404 error occurred"
@@ -116,48 +173,18 @@ msgstr "Accueil"
 msgid "&copy; 2005 - %s by Zend Technologies Ltd. All rights reserved."
 msgstr "&copy; 2005 - %s par Zend Technologies Ltd. Tous droits réservés."
 
-#: module/Question/view/question/question/add.phtml:2
+#: module/Question/view/question/question/add.phtml:3
 #: module/Question/view/question/question/index.phtml:9
 msgid "Add new question"
 msgstr "Ajouter une nouvelle question"
 
-#: module/Question/view/question/question/add.phtml:10
+#: module/Question/view/question/question/add.phtml:11
 msgid "Question title"
 msgstr "Titre de la question"
-
-#: module/Question/view/question/question/answer.phtml:3
-#, php-format
-msgid "Answers for \"%s\""
-msgstr "Réponses pour \"%s\""
-
-#: module/Question/view/question/question/answer.phtml:9
-msgid "Return to question list"
-msgstr "Retour à la liste des questions"
-
-#: module/Question/view/question/question/answer.phtml:15
-msgid "Answer title"
-msgstr "Titre de la réponse"
-
-#: module/Question/view/question/question/answer.phtml:26
-msgid "No answer found for this question"
-msgstr "Aucune réponse trouvée pour cette question"
 
 #: module/Question/view/question/question/delete.phtml:3
 msgid "Delete question"
 msgstr "Supprimer une question"
-
-#: module/Question/view/question/question/delete.phtml:11
-#, php-format
-msgid "Are you sure that you want to delete \"%s\" ?"
-msgstr "Etês-vous sur de vouloir supprimer \"%s\" ?"
-
-#: module/Question/view/question/question/delete.phtml:17
-msgid "Yes"
-msgstr "Oui"
-
-#: module/Question/view/question/question/delete.phtml:18
-msgid "No"
-msgstr "Non"
 
 #: module/Question/view/question/question/edit.phtml:3
 msgid "Edit question"
@@ -167,14 +194,15 @@ msgstr "Modifier une question"
 msgid "My questions"
 msgstr "Mes questions"
 
-#: module/Question/view/question/question/index.phtml:14
-msgid "Title"
-msgstr "Titre"
-
 #: module/Question/view/question/question/index.phtml:21
 msgid "Answer"
 msgstr "Répondre"
 
-#: module/Question/view/question/question/index.phtml:23
-msgid "Delete"
-msgstr "Supprimer"
+#~ msgid "Answers for \"%s\""
+#~ msgstr "Réponses pour \"%s\""
+
+#~ msgid "Return to question list"
+#~ msgstr "Retour à la liste des questions"
+
+#~ msgid "No answer found for this question"
+#~ msgstr "Aucune réponse trouvée pour cette question"

@@ -1,6 +1,6 @@
 <?php
 
-namespace Question;
+namespace Answer;
 
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
@@ -18,16 +18,17 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Model\QuestionTable::class =>  function($container) {
-                    return new Model\QuestionTable(
-                        $container->get(Model\QuestionTableGateway::class)
+                Model\AnswerTable::class =>  function($container) {
+                    return new Model\AnswerTable(
+                        $container->get(Model\AnswerTableGateway::class),
+                        $container->get(\Question\Model\QuestionTable::class)
                     );
                 },
-                Model\QuestionTableGateway::class => function ($container) {
+                Model\AnswerTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Question());
-                    return new TableGateway('question', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Answer());
+                    return new TableGateway('answer', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];
@@ -37,9 +38,9 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\QuestionController::class =>  function($container) {
-                    return new Controller\QuestionController(
-                        $container->get(Model\QuestionTable::class),
+                Controller\AnswerController::class =>  function($container) {
+                    return new Controller\AnswerController(
+                        $container->get(Model\AnswerTable::class),
                         $container->get('Zend\I18n\Translator\TranslatorInterface')
                     );
                 },
