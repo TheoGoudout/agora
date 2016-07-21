@@ -23,8 +23,10 @@ data/DoctrineORMModule/cache/
 node_modules/
 
 # Automatically generated public files
-public/css/
-public/js/
+public/css/*.css
+public/css/*.css.map
+public/js/*.min.js
+public/js/*.min.js.map
 
 # Legacy ZF1
 demos/
