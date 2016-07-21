@@ -19,6 +19,12 @@ temp/
 data/DoctrineORMModule/Proxy/
 data/DoctrineORMModule/cache/
 
+# NodeJS modules
+node_modules/
+
+# Automatically generated public files
+public/css/
+public/js/
 
 # Legacy ZF1
 demos/
