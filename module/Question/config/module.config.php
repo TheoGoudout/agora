@@ -8,20 +8,6 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'home' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route'    => '/[:lang]',
-                    'constraints' => [
-                        'lang'   => '[a-z]{2}_[A-Z]{2}',
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\QuestionController::class,
-                        'action'     => 'index',
-                        'lang'       => 'en_US',
-                    ],
-                ],
-            ],
             'question' => [
                 'type'    => 'segment',
                 'options' => [
