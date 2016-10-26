@@ -34,26 +34,26 @@ class PetitionTable
         $select->order('p.creationDate DESC');
 
         // Check id
-        $id = (int)$params['id'];
+        $id = isset($params['id']) ? (int)$params['id'] : 0;
         if ($id) {
-            $select->where(array('p.id' => (int)$params['id']));
+            $select->where(array('p.id' => $id));
         }
 
         // Check special id
-        if ($params['id'] == 'latest') {
+        if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
                 ->where->lessThanOrEqualTo('p.creationDate', 'CURRENT_TIMESTAMP');
         }
 
         // Check limit
-        $limit = (int)$params['limit'];
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 0;
         if ($limit) {
             $select->limit($limit);
         }
 
         // Check offset
-        $offset = (int)$params['offset'];
+        $offset = isset($params['offset']) ? (int)$params['offset'] : 0;
         if ($offset) {
             $select->offset($offset);
         }
@@ -77,7 +77,7 @@ class PetitionTable
         $subselect = null;
         $columns = array();
 
-        if (!$params['status']) {
+        if (!array_key_exists('status', $params)) {
             $subselect = new Select();
             $subselect
                 ->from(array('t1' => 'PetitionStatus'))
@@ -97,7 +97,7 @@ class PetitionTable
             $columns = array('latestStatus', 'latestStatusDate');
         }
 
-        if (!$params['signature']) {
+        if (!array_key_exists('signature', $params)) {
             $subsubselect = null;
             if ($subselect !== null) {
                 $subsubselect = $subselect;
@@ -122,7 +122,7 @@ class PetitionTable
             array_push($columns, 'signatureCount');
         }
 
-        if (!$params['mailingList']) {
+        if (!array_key_exists('mailingList', $params)) {
             $subsubselect = null;
             if ($subselect !== null) {
                 $subsubselect = $subselect;
@@ -161,7 +161,7 @@ class PetitionTable
 
         foreach ($results as $result) {
 
-            if ($params['status']) {
+            if (array_key_exists('status', $params)) {
                 // Retrieve statuses
                 $result->statuses = $this->petitionStatusTable->getPetitionStatusesByPetitionId($result->id);
                 if (count($result->statuses) > 0) {
@@ -170,13 +170,13 @@ class PetitionTable
                 }
             }
 
-            if ($params['signature']) {
+            if (array_key_exists('signature', $params)) {
                 // Retrieve signatures
                 $result->signatures = $this->petitionSignatureTable->getPetitionSignaturesByPetitionId($result->id);
                 $result->signatureCount = count($result->signatures);
             }
 
-            if ($params['mailingList']) {
+            if (array_key_exists('mailingList', $params)) {
                 // Retrieve mailing list subscriptions
                 $result->mailingLists = $this->petitionMailingListTable->getPetitionMailingListsByPetitionId($result->id);
                 $result->mailingListCount = count($result->mailingLists);

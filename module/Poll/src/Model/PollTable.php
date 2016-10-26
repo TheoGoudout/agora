@@ -32,26 +32,26 @@ class PollTable
         $select->order('p.startDate DESC');
 
         // Check id
-        $id = (int)$param['id'];
+        $id = isset($params['id']) ? (int)$params['id'] : 0;
         if ($id) {
-            $select->where(array('p.id' => (int)$param['id']));
+            $select->where(array('p.id' => $id));
         }
 
         // Check special id
-        if ($param['id'] == 'latest') {
+        if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
                 ->where->lessThanOrEqualTo('p.startDate', 'CURRENT_TIMESTAMP');
         }
 
         // Check limit
-        $limit = (int)$param['limit'];
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 0;
         if ($limit) {
             $select->limit($limit);
         }
 
         // Check offset
-        $offset = (int)$param['offset'];
+        $offset = isset($params['offset']) ? (int)$params['offset'] : 0;
         if ($offset) {
             $select->offset($offset);
         }
@@ -75,7 +75,7 @@ class PollTable
         $subselect = null;
         $columns = array();
 
-        if (!$params['votes']) {
+        if (!array_key_exists('votes', $params)) {
             $subselect = new Select();
             $subselect
                 ->from(array('v' => 'PollVote'))
@@ -90,7 +90,7 @@ class PollTable
             array_push($columns, 'voteCount');
         }
 
-        if (!$params['answers']) {
+        if (!array_key_exists('answers', $params)) {
             $subsubselect = null;
             if ($subselect !== null) {
                 $subsubselect = $subselect;
@@ -128,13 +128,13 @@ class PollTable
         $results = $this->getPollsFromSelect($params, $select);
 
         foreach ($results as $result) {
-            if ($params['answers']) {
+            if (array_key_exists('answers', $params)) {
                 // Retrieve answers
-                $result->answers = $this->pollAnswerTable->getPollAnswersByPollId($result->id, !!$params['votes']);
+                $result->answers = $this->pollAnswerTable->getPollAnswersByPollId($result->id, array_key_exists('votes', $params));
                 $result->answerCount = count($result->answers);
             }
 
-            if ($params['votes']) {
+            if (array_key_exists('votes', $params)) {
                 // Retrieve votes
                 $result->votes = $this->pollVoteTable->getPollVotesByPollId($result->id);
                 $result->voteCount = count($result->votes);
