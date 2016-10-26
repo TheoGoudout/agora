@@ -23,8 +23,8 @@ class Module implements ConfigProviderInterface
 
         $setTranslatorLocale = function($lang) use ($translator) {
             $translator
-              ->setLocale($lang ? $lang : 'en_US')
-              ->setFallbackLocale('en_US');
+              ->setLocale($lang)
+              ->setFallbackLocale('fr_FR');
         };
 
         $getLocale = function ($event)
@@ -70,4 +70,19 @@ class Module implements ConfigProviderInterface
     {
         return include __DIR__ . '/../config/module.config.php';
     }
+
+    public function getControllerConfig()
+    {
+        return [
+            'factories' => [
+                Controller\HomeController::class => function($container) {
+                    return new Controller\HomeController(
+                        $container->get(\Poll\Model\PollTable::class),
+                        $container->get(\Petition\Model\PetitionTable::class)
+                    );
+                },
+            ],
+        ];
+    }
+
 }

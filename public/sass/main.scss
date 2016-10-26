@@ -1,8 +1,6 @@
 @import 'libs/vars';
 @import 'libs/functions';
-@import 'libs/mixins';
 @import 'libs/skel';
-@import 'font-awesome.min.css';
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900');
 
 /*
@@ -20,26 +18,6 @@
 		xxsmall: '(max-width: 360px)'
 	));
 
-	@include skel-layout((
-		reset: 'full',
-		boxModel: 'border',
-		grid: (
-			gutters: 2em
-		),
-		breakpoints: (
-			medium: (
-				grid: (
-					gutters: 1.5em
-				)
-			),
-			small: (
-				grid: (
-					gutters: 1em
-				)
-			)
-		)
-	));
-
 // Base.
 
 	@import 'base/page';
@@ -48,14 +26,8 @@
 // Component.
 
 	@import 'components/section';
-	@import 'components/icon';
 	@import 'components/list';
-	@import 'components/form';
-	@import 'components/box';
-	@import 'components/image';
-	@import 'components/table';
-	@import 'components/button';
-	@import 'components/tiles';
+	@import 'components/progressbar';
 
 // Layout.
 
@@ -64,3 +36,4 @@
 	@import 'layout/main';
 	@import 'layout/footer';
 	@import 'layout/wrapper';
+    @import 'layout/bbcode';

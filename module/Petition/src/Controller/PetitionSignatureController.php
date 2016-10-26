@@ -5,15 +5,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application\Controller;
+namespace Petition\Controller;
 
+use Petition\Model\PetitionTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class PetitionSignatureController extends AbstractActionController
 {
-    public function indexAction()
+    protected $petitionSignatureTable;
+
+    public function __construct(PetitionSignatureTable $table)
     {
-        return new ViewModel();
+        $this->petitionSignatureTable = $table;
     }
 }

@@ -1,0 +1,15 @@
+<header class="hiddable">
+	<h1>Votez pour la prochaine pétition.</h1>
+	<p>Sur cette page, vous pouvez faire entendre votre voix! Choisissez quel sujet devrait aborder la prochaine pétition.</p>
+	<p>Si aucun de ces sujets ne vous inspire, vous pouvez toujours nous en soumettre de nouveaux. Après étude du sujet et de sa faisabilité, nous l'ajouterons au système de vote.</p>
+</header>
+<section>
+<?php
+	echo $this->partial(
+		'poll/poll/poll.phtml',
+		array(
+			'poll' => $poll
+		)
+	);
+?>
+</section>

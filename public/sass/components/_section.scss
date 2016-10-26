@@ -1,25 +1,58 @@
-///
-/// Phantom by HTML5 UP
-/// html5up.net | @ajlkn
-/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-///
-
 /* Section/Article */
 
-	section, article {
-		&.special {
-			text-align: center;
-		}
-	}
+    article {
+        border-top: solid 1px _palette(article-border);
+        line-height: 1;
+        padding: 20px 0;
 
-	header {
-		p {
-			margin-top: _size(element-margin) * -0.5;
-		}
+        header {
+            padding-bottom: 10px;
 
-		@include breakpoint(small) {
-			p {
-				margin-top: 0;
-			}
-		}
-	}
+            ul {
+                color: _palette(item-title-information);
+            }
+        }
+
+        .item {
+            text-align: left;
+            padding-bottom: 10px;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+
+            header {
+
+                .title {
+                    font-weight: bold;
+                    color: black;
+                }
+
+                ul {
+                    padding-top: 5px;
+                    color: _palette(item-title-information);
+                }
+            }
+        }
+    }
+
+    article > .item header .info:after {
+        content: " - ";
+    }
+
+    article > .item header .info:last-child:after {
+        content: "";
+    }
+
+    article > .item .count {
+        font-weight: bold;
+        font-size: 11pt;
+        color: #2A3D75;
+        padding-right: 10px;
+    }
+
+    article > .item header > a {
+        color: #656565;
+        text-align: center;
+        text-decoration: none;
+    }

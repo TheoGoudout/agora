@@ -1,0 +1,15 @@
+<div class="item">
+    <a href="<?= $this->url('vote', ['pid' => $answer->pid, 'aid' => $answer->id, 'action' => 'vote'], [], true) ?>">
+        <header>
+            <h2><?= $answer->content; ?></h2>
+            <ul class="inlined">
+                <li>Ajouté le <?= $answer->creationDate; ?></li>
+                <li>Proposé par <?= $answer->author; ?></li>
+            </ul>
+        </header>
+    </a>
+    <div class="tab">
+        <progress max="<?= $totalVoteCount; ?>" value="<?= $answer->voteCount; ?>"></progress>
+        <span class="count"><?= $answer->voteCount ? $answer->voteCount : 0; /* TODO : format */ ?> votes</span>
+    </div>
+</div>

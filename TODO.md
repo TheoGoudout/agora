@@ -1,12 +1,13 @@
 # TODO
 
-This is a TODO list for the feature/zend-mvc-v3-minimal branch.
+This is a list of all the remaining features/bugs left to implement/fix.
 
-## Documentation
+## Features
 
-- ModuleRouteListener is removed from the skeleton. This won't affect existing
-  users, but *will* affect experienced users who originally relied on it being
-  active in new skeleton projects.
-- The `/[:controller][/:action]]` route was removed from the skeleton. Again, it
-  will not affect existing users, but *will* affect experienced users who
-  originally relied on it being active in new skeleton projects.
+[X] CRITICAL   - Display petition body.
+[X] CRITICAL   - Display a list of the latest petitions.
+[ ] IMPORTANT  - Deployment script
+[ ] IMPORTANT  - Write unit tests
+[ ] TO BE DONE - Administration interface
+
+## BUGS

@@ -11,12 +11,15 @@
     "uglify-js": "~2.7.0"
   },
   "watch": {
-    "sass": "public/sass",
+    "sass": {
+      "patterns": ["public/sass"],
+      "extensions": "scss"
+    },
     "uglify-js": "public/js"
   },
   "scripts": {
-    "sass": "cd public && node-sass sass --output css --output-style compressed --source-map true",
-    "uglify-js": "cd public/js && uglifyjs *.js --output main.min.js --source-map main.min.js.map",
+    "sass": "cd public && rm -f main.min.css main.min.css.map && node-sass sass --output css --output-style compressed --source-map true",
+    "uglify-js": "cd public/js && rm -f main.min.js main.min.js.map && uglifyjs *.js --output main.min.js --source-map main.min.js.map",
     "watch": "npm-watch"
   }
 }

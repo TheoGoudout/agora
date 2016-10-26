@@ -4,17 +4,22 @@
     <head>
         <!-- Title -->
         <?=
-            $this->headTitle($this->translate('Agora Petition'))
+            $this->headTitle($this->translate('Agora Pétitions'))
                 ->setSeparator(' - ')
                 ->setAutoEscape(false)
         ?>
+
+
         <!-- Meta -->
         <?=
             $this->headMeta()
-                ->setCharset('utf-8')
+                ->setCharset('UTF-8')
                 ->appendName('viewport', 'width=device-width, initial-scale=1.0')
                 ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+                ->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
+                ->appendHttpEquiv('Content-Language', 'en-US');
         ?>
+
         <!-- Styles -->
         <?=
             $this->headLink([
@@ -22,14 +27,16 @@
                 'type' => 'image/x-icon',
                 'href' => $this->basePath('img/favicon.ico'),
             ])
-                ->prependStylesheet($this->basePath('css/main.css'))
-                ->prependStylesheet($this->basePath('css/ie9.css'), 'screen', 'IE9')
-                ->prependStylesheet($this->basePath('css/ie8.css'), 'screen', 'IE8')
+                ->appendStylesheet($this->basePath('css/main.css'))
+                // ->appendStylesheet($this->basePath('css/ie9.css'), 'screen', 'IE9')
+                // ->appendStylesheet($this->basePath('css/ie8.css'), 'screen', 'IE8');
+            ;
         ?>
+
         <!-- Scripts -->
-        <?= $this->headScript()
-            ->prependFile($this->basePath('js/main.min.js'))
-            ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
+        <?=
+            $this->headScript()
+            ->prependFile($this->basePath('js/main.min.js'));
         ?>
     </head>
     <body>
@@ -39,42 +46,52 @@
             <header id="header">
                 <div class="inner">
                     <!-- Logo -->
-                    <a href="<?= $this->url('home', [], [], true) ?>" class="logo">
-                        <span class="symbol"><img src="img/logo.png" alt="" /></span>
-                        <span class="title"><?= $this->translate('Agora Petition'); ?></span>
+                    <a href="/" class="logo">
+                        <span class="symbol"><img src="/img/logo.png" alt="" /></span><br/>
+                        <span><?= $this->translate('Rendre le pouvoir au peuple'); ?></span>
                     </a>
-                    <!-- Menu logo -->
-                    <nav>
-                        <ul>
-                            <li><a href="#menu"><?= $this->translate('Menu'); ?></a></li>
-                        </ul>
-                    </nav>
                 </div>
+                <!-- Menu logo -->
+                <nav>
+                    <a href="#menu"><?= $this->translate('Menu'); ?></a>
+                </nav>
             </header>
             <!-- Menu -->
             <nav id="menu">
                 <h2><?= $this->translate('Menu'); ?></h2>
-                <ul>
-                    <li><a href="<?= $this->url('home', [], [], true) ?>"><?= $this->translate('Home'); ?></a></li>
-                    <li><a href="<?= $this->url('question', [], [], true) ?>"><?= $this->translate('Current vote'); ?></a></li>
-                    <li><a href="<?= $this->url('question', [], [], true) ?>"><?= $this->translate('Previous petitions'); ?></a></li>
-                    <li><a href="<?= $this->url('question', [], [], true) ?>"><?= $this->translate('About us'); ?></a></li>
+                <ul class="inlined">
+                <?php
+                    $menuItems = array(
+                        $this->translate('Accueil')   => $this->url('home', ['action' => 'index'], [], true),
+                        $this->translate('Vote')      => $this->url('poll', ['action' => 'index', 'pid' => 'latest'], [], true),
+                        $this->translate('Pétitions') => $this->url('petitions', ['action' => 'index'], [], true),
+                        $this->translate('Contact')   => $this->url('home', ['action' => 'contact'], [], true),
+                        $this->translate('À propos')  => $this->url('home', ['action' => 'about'], [], true),
+                    );
+
+                    foreach ($menuItems as $text => $url) {
+                ?>
+                    <li><a href="<?= $url ?>"<?= $_SERVER['REQUEST_URI'] == $url ? 'class="selected"' : ''?>><?= $text; ?></a></li>
+                <?php
+                    }
+                ?>
                 </ul>
             </nav>
             <!-- Main content -->
-            <div id="content">
+            <div id="main">
                 <div class="inner">
-                    <?= $this->content; ?>
+<?= $this->content; ?>
                 </div>
             </div>
         </div>
         <!-- Footer -->
         <footer id="footer">
             <div class="inner">
-                <ul class="copyright">
-                    <li><?= sprintf($this->translate('&copy; %s by Agora Petition Association. All rights reserved.'), date('Y')); ?></li>
-                    <li><?= $this->translate('Design: '); ?><a href="http://html5up.net">HTML5 UP</a></li>
+                <ul class="inlined">
+                    <li><?= $this->translate('Tous droits réservés'); ?></li>
+                    <li><?= $this->translate('Agora Pétition &copy; 2016'); ?></li>
                 </ul>
+                <p><?= $this->translate('Ce site est optimisé pour <a href="http://www.mozilla.org/firefox">Mozilla Firefox</a> et <a href="http://www.google.com/chrome">Google Chrome</a>'); ?></p>
             </div>
         </footer>
     </body>

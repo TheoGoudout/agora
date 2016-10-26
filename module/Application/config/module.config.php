@@ -7,7 +7,6 @@
 
 namespace Application;
 
-use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -17,33 +16,18 @@ return [
             'home' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/[:lang]',
+                    'route'    => '/[:lang/][:action]',
                     'constraints' => [
                         'lang'   => '[a-z]{2}_[A-Z]{2}',
+                        'action' => '[a-z]+',
                     ],
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => Controller\HomeController::class,
                         'action'     => 'index',
-                        'lang'       => 'en_US',
+                        'lang'       => 'fr_FR',
                     ],
                 ],
             ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/:lang/application[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
-                        'lang'       => 'en_US',
-                    ],
-                ],
-            ],
-        ],
-    ],
-    'controllers' => [
-        'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [
@@ -53,10 +37,12 @@ return [
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'layout/layout'            => __DIR__ . '/../view/layout/layout.phtml',
+            'application/home/index'   => __DIR__ . '/../view/application/home/index.phtml',
+            'application/home/contact' => __DIR__ . '/../view/application/home/contact.phtml',
+            'application/home/about'   => __DIR__ . '/../view/application/home/about.phtml',
+            'error/404'                => __DIR__ . '/../view/error/404.phtml',
+            'error/index'              => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',

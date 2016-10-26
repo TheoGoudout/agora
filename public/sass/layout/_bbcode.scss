@@ -1,0 +1,37 @@
+/* BBCode */
+
+    .bbcode {
+        &, & * {
+            text-align: left;
+            font-weight: inherit;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+
+        }
+
+        u {
+
+        }
+
+        ul {
+
+        }
+
+        li {
+
+        }
+
+        a {
+
+        }
+
+        p {
+            margin: 10px;
+            text-align: justify;
+        }
+    }

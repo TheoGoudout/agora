@@ -1,5 +1,9 @@
-<h1><?= $this->translate('A 404 error occurred'); ?></h1>
-<h2><?= $this->message ?></h2>
+<section>
+    <article>
+        <header>
+            <h1><?= $this->translate('Erreur 404 : Page introuvable'); ?></h1>
+        </header>
+        <div class="item">
 
 <?php if (isset($this->reason) && $this->reason): ?>
 
@@ -23,10 +27,15 @@ switch ($this->reason) {
         break;
 }
 ?>
-
-<p><?= $reasonMessage ?></p>
-
+            <header>
+                <h2><?= $this->message; ?></h2>
+                <ul class="inlined">
+                    <li><?= $reasonMessage ?></li>
+                </ul>
+            </header>
+            <div class="tab">
 <?php endif ?>
+
 
 <?php if (isset($this->controller) && $this->controller): ?>
 
@@ -111,3 +120,7 @@ if (isset($this->controller_class)
 <?php endif ?>
 
 <?php endif ?>
+            </div>
+        </div>
+    </article>
+</section>

@@ -1,0 +1,21 @@
+<article>
+    <a href="<?= $this->url('poll', ['action' => 'index', 'pid' => $poll->id], [], true) ?>">
+        <header>
+            <h1><?= $poll->content; ?></h1>
+            <ul class="inlined">
+                <li>Fin du vote le <?= $poll->startDate;?></li>
+            </ul>
+        </header>
+    </a>
+<?php
+    foreach ($poll->answers as $answer) {
+        echo $this->partial(
+            'poll/poll/pollAnswer.phtml', 
+            array(
+                'answer'         => $answer,
+                'totalVoteCount' => $poll->voteCount
+            )
+        );
+    }
+?>
+</article>

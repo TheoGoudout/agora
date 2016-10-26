@@ -1,0 +1,23 @@
+<header class="hiddable">
+    <h1>Signez les pétitions qui vous intérèssent.</h1>
+    <p>Cette pétition vous intéresse? Signez là des maintenant!</p>
+    <p>Dans le cas ou une pétition a atteint les 500 000 signatures papiers, vous ne pourrez plus la signer. En revanche vous pouvez toujours vous inscrire à la newsletter de celle-ci afin de rester informé de son évolution.</p>
+</header>
+<section>
+    <article>
+        <div class="item">
+            <a href="<?= $this->url('petition', ['pid' => $petition->id], [], true) ?>">
+                <header>
+                    <h2><?= $petition->title; ?></h2>
+                    <ul class="inlined">
+                        <li><?= $petition->latestStatus; ?></li>
+                        <li><?= $petition->latestStatusDate; ?></li>
+                    </ul>
+                </header>
+            </a>
+            <div class="bbcode">
+                <?= $petition->content; ?>
+            </div>
+        </div>
+    </article>
+</section>

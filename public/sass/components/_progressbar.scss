@@ -1,0 +1,110 @@
+/* Progress bar */
+/* Check https://github.com/LeaVerou/HTML5-Progress-polyfill for polyfill */
+
+    progress,          /* All HTML5 progress enabled browsers */
+    progress[role]     /* polyfill */
+    {
+
+      /* Turns off styling - not usually needed, but good to know. */
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+
+      /* gets rid of default border in Firefox and Opera. */ 
+      border: none;
+
+      /* Needs to be in here for Safari polyfill so background images work as expected. */
+      background-size: auto;
+      
+      /* Dimensions */
+      width: 250px;
+      height: 15px;
+
+      margin: 0 10px;
+    }
+
+    /* Polyfill */
+    progress[role]:after {
+      background-image: none; /* removes default background from polyfill */
+    }
+
+    /* Ensure fallback text doesn't appear in polyfill */
+    progress[role] strong {
+      display: none;
+    }
+
+    progress,                          /* Firefox  */ 
+    progress[role][aria-valuenow] {    /* Polyfill */
+       background: _palette(progressbar-background) !important; /* !important is needed by the polyfill */
+    }
+
+    /* Chrome */
+    progress::-webkit-progress-bar {
+        background: _palette(progressbar-background);
+    }
+
+    /* IE10 */
+    progress {
+        color: _palette(progressbar-main);
+    }
+
+    /* Firefox */
+    progress::-moz-progress-bar { 
+      background: _palette(progressbar-main);  
+      background-image: -moz-repeating-linear-gradient(
+        -45deg,
+        _palette(progressbar-gradient) 10px,
+        _palette(progressbar-gradient) 10px,
+        transparent 10px,
+        transparent 20px,
+        _palette(progressbar-gradient) 20px,
+        _palette(progressbar-gradient) 30px,
+        transparent 30px
+      );
+    }
+
+    /* Chrome */
+    progress::-webkit-progress-value {
+      background: _palette(progressbar-main);
+      background-image: -webkit-repeating-linear-gradient(
+        -45deg,
+        _palette(progressbar-gradient) 10px,
+        transparent 10px,
+        transparent 20px,
+        _palette(progressbar-gradient) 20px,
+        _palette(progressbar-gradient) 30px,
+        transparent 30px
+      );
+    }
+
+    /* Polyfill */
+    progress[aria-valuenow]:before  {
+      background: _palette(progressbar-main);
+      background-image: -moz-repeating-linear-gradient(
+        -45deg,
+        _palette(progressbar-gradient) 10px,
+        transparent 10px,
+        transparent 20px,
+        _palette(progressbar-gradient) 20px,
+        _palette(progressbar-gradient) 30px,
+        transparent 30px
+      );
+      background-image: -ms-repeating-linear-gradient(
+        -45deg,
+        _palette(progressbar-gradient) 10px,
+        transparent 10px,
+        transparent 20px,
+        _palette(progressbar-gradient) 20px,
+        _palette(progressbar-gradient) 30px,
+        transparent 30px
+      );
+      background-image: -o-repeating-linear-gradient(
+        -45deg,
+        _palette(progressbar-gradient) 10px,
+        transparent 10px,
+        transparent 20px,
+        _palette(progressbar-gradient) 20px,
+        _palette(progressbar-gradient) 30px,
+        transparent 30px
+      );
+    }
