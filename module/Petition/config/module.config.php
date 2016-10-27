@@ -64,7 +64,6 @@ return [
         'template_map' => [
             'petition/petition/index'         => __DIR__ . '/../view/petition/petition/index.phtml',
             'petition/petitions/index'        => __DIR__ . '/../view/petition/petitions/index.phtml',
-            'petition/petition-signature/add' => __DIR__ . '/../view/petition/signature/add.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
