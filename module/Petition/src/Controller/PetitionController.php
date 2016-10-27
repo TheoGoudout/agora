@@ -7,9 +7,11 @@
 
 namespace Petition\Controller;
 
-use Petition\Model\PetitionTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+
+use Petition\Model\PetitionTable;
+use Petition\Form\PetitionSignatureForm;
 
 class PetitionController extends AbstractActionController
 {
@@ -22,6 +24,7 @@ class PetitionController extends AbstractActionController
 
     public function indexAction()
     {
+        // Get petition informations
         $pid = $this->params()->fromRoute('pid', 0);
         $petition = $this->petitionTable->getPetitions(array('id' => $pid));
 
@@ -31,8 +34,14 @@ class PetitionController extends AbstractActionController
             $petition = $petition[0];
         }
 
+        // Get signature form
+        $form = new PetitionSignatureForm();
+        $form->get('submit')->setValue('Je signe!');
+        $form->get('pid')->setValue($pid);
+
         return new ViewModel(array(
             'petition' => $petition,
+            'form'     => $form,
         ));
     }
 }

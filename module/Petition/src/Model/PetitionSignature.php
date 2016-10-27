@@ -11,6 +11,8 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+use Zend\Validator;
+
 class PetitionSignature implements InputFilterAwareInterface
 {
     public $id;
@@ -30,18 +32,18 @@ class PetitionSignature implements InputFilterAwareInterface
 
     public function exchangeArray($data)
     {
-        $this->id           = empty($data['id'])           ? null : $data['id'];
-        $this->pid          = empty($data['pid'])          ? null : $data['pid'];
-        $this->creationDate = empty($data['creationDate']) ? null : $data['creationDate'];
-        $this->lastModified = empty($data['lastModified']) ? null : $data['lastModified'];
-        $this->gender       = empty($data['gender'])       ? null : $data['gender'];
-        $this->firstName    = empty($data['firstName'])    ? null : $data['firstName'];
-        $this->lastName     = empty($data['lastName'])     ? null : $data['lastName'];
-        $this->address1     = empty($data['address1'])     ? null : $data['address1'];
-        $this->address2     = empty($data['address2'])     ? null : $data['address2'];
-        $this->address3     = empty($data['address3'])     ? null : $data['address3'];
-        $this->zipCode      = empty($data['zipCode'])      ? null : $data['zipCode'];
-        $this->city         = empty($data['city'])         ? null : $data['city'];
+        $this->id           = isset($data['id'])           ? $data['id']           : null;
+        $this->pid          = isset($data['pid'])          ? $data['pid']          : null;
+        $this->creationDate = isset($data['creationDate']) ? $data['creationDate'] : null;
+        $this->lastModified = isset($data['lastModified']) ? $data['lastModified'] : null;
+        $this->gender       = isset($data['gender'])       ? $data['gender']       : null;
+        $this->firstName    = isset($data['firstName'])    ? $data['firstName']    : null;
+        $this->lastName     = isset($data['lastName'])     ? $data['lastName']     : null;
+        $this->address1     = isset($data['address1'])     ? $data['address1']     : null;
+        $this->address2     = isset($data['address2'])     ? $data['address2']     : null;
+        $this->address3     = isset($data['address3'])     ? $data['address3']     : null;
+        $this->zipCode      = isset($data['zipCode'])      ? $data['zipCode']      : null;
+        $this->city         = isset($data['city'])         ? $data['city']         : null;
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -55,49 +57,141 @@ class PetitionSignature implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(
-            'name'     => 'id',
-            'required' => true,
-            'filters'  => array(
-            array('name' => 'Int'),
-            ),
+                'name'     => 'pid',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
             ));
 
             $inputFilter->add(array(
-            'name'     => 'artist',
-            'required' => true,
-            'filters'  => array(
-            array('name' => 'StripTags'),
-            array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-            array(
-            'name'    => 'StringLength',
-            'options' => array(
-            'encoding' => 'UTF-8',
-            'min'      => 1,
-            'max'      => 100,
-            ),
-            ),
-            ),
+                'name'     => 'gender',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
             ));
 
             $inputFilter->add(array(
-            'name'     => 'title',
-            'required' => true,
-            'filters'  => array(
-            array('name' => 'StripTags'),
-            array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-            array(
-            'name'    => 'StringLength',
-            'options' => array(
-            'encoding' => 'UTF-8',
-            'min'      => 1,
-            'max'      => 100,
-            ),
-            ),
-            ),
+                'name'     => 'firstName',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'lastName',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'address1',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'address2',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'address3',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'zipCode',
+                'required' => true,
+                'validators' => array(
+                    new Validator\Regex(array('pattern' => '/[0-9]{5}/'))
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'city',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
             ));
 
             $this->inputFilter = $inputFilter;

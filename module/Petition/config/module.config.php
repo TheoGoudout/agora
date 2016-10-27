@@ -41,12 +41,30 @@ return [
                     ],
                 ],
             ],
+
+            'signature' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/[:lang/]petition/:pid/sign',
+                    'constraints' => [
+                        'lang' => '[a-z]{2}_[A-Z]{2}',
+                        'pid'  => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\PetitionSignatureController::class,
+                        'action'     => 'add',
+                        'lang'       => 'fr_FR',
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [
         'doctype' => 'HTML5',
         'template_map' => [
-            'petition/petition/index'        => __DIR__ . '/../view/petition/petition/index.phtml',
+            'petition/petition/index'         => __DIR__ . '/../view/petition/petition/index.phtml',
+            'petition/petitions/index'        => __DIR__ . '/../view/petition/petitions/index.phtml',
+            'petition/petition-signature/add' => __DIR__ . '/../view/petition/signature/add.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',

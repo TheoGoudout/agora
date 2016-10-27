@@ -17,26 +17,6 @@ class PetitionSignatureForm extends Form
         // we want to ignore the name passed
         parent::__construct('PetitionSignature');
 
-        public $id;
-        public $pid;
-        public $creationDate;
-        public $lastModified;
-        public $gender;
-        public $firstName;
-        public $lastName;
-        public $address1;
-        public $address2;
-        public $address3;
-        public $zipCode;
-        public $city;
-
-
-        // Signature ID
-        $this->add(array(
-            'name' => 'id',
-            'type' => 'Hidden',
-        ));
-
         // Petition ID
         $this->add(array(
             'name' => 'pid',
@@ -45,7 +25,7 @@ class PetitionSignatureForm extends Form
 
         // Gender
         $gender = new Element\Radio('gender');
-        $gender->setLable('Selectionnez votre titre');
+        $gender->setLabel('Titre');
         $gender->setValueOptions(array(
             '0' => 'Madame',
             '1' => 'Monsieur',
@@ -86,4 +66,15 @@ class PetitionSignatureForm extends Form
         $city = new Element\Text('city');
         $city->setLabel('Ville');
         $this->add($city);
+
+        // Submit button
+        $this->add(array(
+            'name' => 'submit',
+            'type' => 'Submit',
+            'attributes' => array(
+                'value' => 'Go',
+                'id' => 'submitbutton',
+            ),
+        ));
+    }
 }
