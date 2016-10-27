@@ -23,10 +23,10 @@ class PetitionsController extends AbstractActionController
     public function indexAction()
     {
         $pid = $this->params()->fromRoute('pid', 0);
-        $row = $this->petitionTable->getPetitions(array('limit' => 10));
+        $petitions = $this->petitionTable->getPetitions(array('limit' => 10));
 
         return new ViewModel(array(
-            'petitions' => $row,
+            'petitions' => $petitions,
         ));
     }
 }

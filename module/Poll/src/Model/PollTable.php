@@ -80,7 +80,7 @@ class PollTable
             $subselect
                 ->from(array('v' => 'PollVote'))
                 ->columns(
-                    array('pid', 'voteCount' => new \Zend\Db\Sql\Expression('COUNT(v.id)'))
+                    array('pid', 'voteCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(v.id),0)'))
                 )
                 ->group(array_merge(
                     $columns,
@@ -100,7 +100,7 @@ class PollTable
             $subselect
                 ->from(array('a' => 'PollAnswer'))
                 ->columns(
-                    array('pid', 'answerCount' => new \Zend\Db\Sql\Expression('COUNT(a.id)'))
+                    array('pid', 'answerCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(a.id),0)'))
                 )
                 ->group(array_merge(
                     $columns,

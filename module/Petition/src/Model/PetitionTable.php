@@ -107,7 +107,7 @@ class PetitionTable
             $subselect
                 ->from(array('sig' => 'PetitionSignature'))
                 ->columns(
-                    array('pid', 'signatureCount' => new \Zend\Db\Sql\Expression('COUNT(sig.id)'))
+                    array('pid', 'signatureCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(sig.id),0)'))
                 )
                 ->group(array_merge(
                     $columns,
@@ -132,7 +132,7 @@ class PetitionTable
             $subselect
                 ->from(array('m' => 'PetitionMailingList'))
                 ->columns(
-                    array('pid', 'mailingListCount' => new \Zend\Db\Sql\Expression('COUNT(m.id)'))
+                    array('pid', 'mailingListCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(m.id),0)'))
                 )
                 ->group(array_merge(
                     $columns,
