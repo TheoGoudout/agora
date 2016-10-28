@@ -57,6 +57,21 @@ return [
                     ],
                 ],
             ],
+            'mailingList' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/[:lang/]petition/:pid/subscribe',
+                    'constraints' => [
+                        'lang' => '[a-z]{2}_[A-Z]{2}',
+                        'pid'  => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\PetitionMailingListController::class,
+                        'action'     => 'add',
+                        'lang'       => 'fr_FR',
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [

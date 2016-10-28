@@ -67,6 +67,14 @@ class PetitionSignatureForm extends Form
         $city->setLabel('Ville');
         $this->add($city);
 
+        // Check box
+        $checkbox = new Element\Checkbox('agreement');
+        $checkbox->setLabel('En signant éléctroniquement cette pétition je reconnais avoir pris connaissance de cele-ci et jure sur l\'honneur être de nationalité française ou résider régulièrement en France. Je m\'engage aussi à faire parvenir une copie papier signée de cette pétition à Agora Pétition dans le cas ou celle-ci dépasse les 500 000 signatures éléctroniques.');
+        $checkbox->setUseHiddenElement(true);
+        $checkbox->setCheckedValue("agreed");
+        $checkbox->setUncheckedValue("denied");
+        $this->add($checkbox);
+
         // Submit button
         $this->add(array(
             'name' => 'submit',

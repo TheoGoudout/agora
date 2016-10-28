@@ -21,6 +21,17 @@ class PetitionMailingListTable
         $this->petitionMailingListTableGateway = $petitionMailingListTableGateway;
     }
 
+    public function getPetitionMailingListById($id)
+    {
+        $id  = (int) $id;
+        $rowset = $this->petitionMailingListTableGateway->select(array('id' => $id));
+        $row = $rowset->current();
+        if (!$row) {
+            throw new \Exception("Could not find row $id");
+        }
+        return $row;
+    }
+
     public function getPetitionMailingListsByPetitionId($pid)
     {
         $pid  = (int) $pid;
@@ -37,6 +48,26 @@ class PetitionMailingListTable
         }
 
         return $results;
+    }
+
+    public function saveMailingList(PetitionMailingList $mailingList)
+    {
+        $data = array(
+            'pid'          => $mailingList->pid,
+            'email'        => $mailingList->email,
+            'enabled'      => true,
+        );
+
+        $id = (int) $mailingList->id;
+        if ($id == 0) {
+            $this->petitionMailingListTableGateway->insert($data);
+        } else {
+            if ($this->getPetitionMailingListById($id)) {
+                $this->tableGateway->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('PetitionMailingList id does not exist');
+            }
+        }
     }
 
     public function deletePetitionMailingList($id)

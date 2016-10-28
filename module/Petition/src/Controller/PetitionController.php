@@ -9,9 +9,11 @@ namespace Petition\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\Container;
 
 use Petition\Model\PetitionTable;
 use Petition\Form\PetitionSignatureForm;
+use Petition\Form\PetitionMailingListForm;
 
 class PetitionController extends AbstractActionController
 {
@@ -35,13 +37,35 @@ class PetitionController extends AbstractActionController
         }
 
         // Get signature form
-        $form = new PetitionSignatureForm();
-        $form->get('submit')->setValue('Je signe!');
-        $form->get('pid')->setValue($pid);
+        session_start();
+        $signatureForm = $_SESSION['signatureForm'];
+        unset($_SESSION['signatureForm']);
+        // $session = new Container('form');
+        // $lastForm = $session->offsetGet('signatureForm');
+        // $session->offsetUnset('lastForm');
+        if (!$signatureForm) {
+            $signatureForm = new PetitionSignatureForm();
+            $signatureForm->get('submit')->setValue('Je signe!');
+            $signatureForm->get('pid')->setValue($pid);
+        }
+
+        // Get signature form
+        session_start();
+        $mailingListForm = $_SESSION['mailingListForm'];
+        unset($_SESSION['mailingListForm']);
+        // $session = new Container('form');
+        // $lastForm = $session->offsetGet('mailingListForm');
+        // $session->offsetUnset('lastForm');
+        if (!$mailingListForm) {
+            $mailingListForm = new PetitionMailingListForm();
+            $mailingListForm->get('submit')->setValue('Je m\'inscris à la mailing list!');
+            $mailingListForm->get('pid')->setValue($pid);
+        }
 
         return new ViewModel(array(
-            'petition' => $petition,
-            'form'     => $form,
+            'petition'        => $petition,
+            'signatureForm'   => $signatureForm,
+            'mailingListForm' => $mailingListForm,
         ));
     }
 }

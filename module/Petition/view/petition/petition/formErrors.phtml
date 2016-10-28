@@ -1,0 +1,25 @@
+<?php
+    $errors = array_merge($signatureForm->getMessages(), $mailingListForm->getMessages());
+    if ($errors) {
+?>
+<fieldset>
+    <legend>Erreurs</legend>
+    <div class="tab">
+    <ul>
+<?php
+    foreach ($errors as $keyErrors) {
+        foreach ($keyErrors as $message) {
+            if ($message) {
+?>
+        <li class="red"><?= $message ?></li>
+<?php
+            }
+        }
+    }
+?>
+    </ul>
+    </div>
+</fieldset>
+<?php   
+    }
+?>

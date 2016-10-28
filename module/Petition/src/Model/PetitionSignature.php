@@ -70,21 +70,37 @@ class PetitionSignature implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre titre',
+                            ),
+                        ),
+                    ),
+                ),
             ));
 
             $inputFilter->add(array(
                 'name'     => 'firstName',
-                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
                     array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre prénom',
+                            ),
+                        ),
+                    ),
+                    array(
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
                             'max'      => 100,
                         ),
                     ),
@@ -93,17 +109,23 @@ class PetitionSignature implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'lastName',
-                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
                     array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre nom',
+                            ),
+                        ),
+                    ),
+                    array(
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
                             'max'      => 100,
                         ),
                     ),
@@ -112,17 +134,23 @@ class PetitionSignature implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'address1',
-                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
                     array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre adresse',
+                            ),
+                        ),
+                    ),
+                    array(
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
                             'max'      => 100,
                         ),
                     ),
@@ -171,24 +199,59 @@ class PetitionSignature implements InputFilterAwareInterface
                 'name'     => 'zipCode',
                 'required' => true,
                 'validators' => array(
-                    new Validator\Regex(array('pattern' => '/[0-9]{5}/'))
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre code postal',
+                            ),
+                        ),
+                    ),
+                    array(
+                        'name' => 'Regex',
+                        'options' => array(
+                            'pattern' => '/[0-9]*/',
+                        ),
+                    ),
                 ),
             ));
 
             $inputFilter->add(array(
                 'name'     => 'city',
-                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
                     array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre ville',
+                            ),
+                        ),
+                    ),
+                    array(
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
                             'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'agreement',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name'    => 'Identical',
+                        'options' => array(
+                            'token' => 'agreed',
+                            'messages' => array(
+                                Validator\Identical::NOT_SAME => 'Vous devez accepter les termes de la signatures éléctronique'
+                            ),
                         ),
                     ),
                 ),

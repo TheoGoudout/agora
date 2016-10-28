@@ -1,83 +1,30 @@
 <?php
-    $form->setAttribute('action', $this->url('signature', ['action' => 'add', 'pid' => $petition->id], [], true));
-    $form->prepare();
-?>
+    $signatureForm->setAttribute('action', $this->url('signature', ['action' => 'add', 'pid' => $petition->id], [], true));
+    $signatureForm->prepare();
 
+    $mailingListForm->setAttribute('action', $this->url('mailingList', ['action' => 'add', 'pid' => $petition->id], [], true));
+    $mailingListForm->prepare();
+?>
 <header class="hiddable">
     <h1>Signez les pétitions qui vous intérèssent.</h1>
     <p>Cette pétition vous intéresse? Signez là des maintenant!</p>
     <p>Dans le cas ou une pétition a atteint les 500 000 signatures papiers, vous ne pourrez plus la signer. En revanche vous pouvez toujours vous inscrire à la newsletter de celle-ci afin de rester informé de son évolution.</p>
 </header>
 <section>
-    <article>
-        <div class="item">
-            <a href="<?= $this->url('petition', ['pid' => $petition->id], [], true) ?>">
-                <header>
-                    <h2><?= $petition->title; ?></h2>
-                    <ul class="inlined">
-                        <li><?= $petition->latestStatus; ?></li>
-                        <li><?= $petition->latestStatusDate; ?></li>
-                    </ul>
-                </header>
-            </a>
-            <div class="bbcode">
-                <?= $petition->content; ?>
-            </div>
-            <div>
-                <progress max="500000" value="<?= $petition->signatureCount; ?>"></progress>
-                <span class="count"><?= $petition->signatureCount ? $petition->signatureCount : 0; /* TODO : format */ ?> e-signatures</span>
-            </div>
-        </div>
-    </article>
-    <article>
-        <div class="item">
-            <header>
-                <h2>Signer la pétition "<?= $petition->title; ?>"</h2>
-            </header>
-            <div class="tab">
-                <?= $this->form()->openTag($form); ?>
-
-                    <?= $this->formHidden($form->get('pid')); ?>
-
-                    <table>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('gender')); ?></td>
-                            <td><?= $this->formRadio($form->get('gender')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('firstName')); ?></td>
-                            <td><?= $this->FormText($form->get('firstName')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('lastName')); ?></td>
-                            <td><?= $this->FormText($form->get('lastName')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('address1')); ?></td>
-                            <td><?= $this->FormText($form->get('address1')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('address2')); ?></td>
-                            <td><?= $this->FormText($form->get('address2')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('address3')); ?></td>
-                            <td><?= $this->FormText($form->get('address3')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('zipCode')); ?></td>
-                            <td><?= $this->FormText($form->get('zipCode')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($form->get('city')); ?></td>
-                            <td><?= $this->FormText($form->get('city')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formSubmit($form->get('submit')); ?></td>
-                        </tr>
-                    </table>
-                <?= $this->form()->closeTag(); ?>
-            </div>
-        </div>
-    </article>
+    <?php
+        echo $this->partial(
+            'petition/petition/petition.phtml',
+            array('petition' => $petition)
+        );
+    ?>
+    <?php
+        echo $this->partial(
+            'petition/petition/form.phtml',
+            array(
+                'title' => $petition->title,
+                'signatureForm' => $signatureForm,
+                'mailingListForm' => $mailingListForm,
+            )
+        );
+    ?>
 </section>

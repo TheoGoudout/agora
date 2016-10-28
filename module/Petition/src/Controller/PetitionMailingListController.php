@@ -7,9 +7,13 @@
 
 namespace Petition\Controller;
 
-use Petition\Model\PetitionTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+// use Zend\Session\Container;
+
+use Petition\Model\PetitionMailingList;
+use Petition\Model\PetitionMailingListTable;
+use Petition\Form\PetitionMailingListForm;
 
 class PetitionMailingListController extends AbstractActionController
 {
@@ -20,13 +24,28 @@ class PetitionMailingListController extends AbstractActionController
         $this->petitionMailingListTable = $table;
     }
 
-    public function subscribe ()
+    public function addAction ()
     {
-        $email = $this->params()->fromRoute('', 0);
-    }
+        $form = new PetitionMailingListForm();
 
-    public function unsubscribe ()
-    {
-        $email = $this->params()->fromRoute('', 0);
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $mailingList = new PetitionMailingList();
+            $form->setInputFilter($mailingList->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $mailingList->exchangeArray($form->getData());
+                $this->petitionMailingListTable->saveMailingList($mailingList);
+            } else {
+                session_start();
+                $_SESSION['mailingListForm'] = $form;
+                // $session = new Container('form');
+                // $session->offsetSet('mailingListForm', $form);
+            }
+        }
+
+        $pid = (int)$this->params()->fromRoute('pid', 0);
+        return $this->redirect()->toRoute('petition', ['action' => 'index', 'pid' => $pid], [], true);
     }
 }

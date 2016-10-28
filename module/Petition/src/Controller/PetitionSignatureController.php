@@ -9,6 +9,7 @@ namespace Petition\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+// use Zend\Session\Container;
 
 use Petition\Model\PetitionSignature;
 use Petition\Model\PetitionSignatureTable;
@@ -37,8 +38,10 @@ class PetitionSignatureController extends AbstractActionController
                 $signature->exchangeArray($form->getData());
                 $this->petitionSignatureTable->saveSignature($signature);
             } else {
-                var_dump($form->getMessages());
-                return;
+                session_start();
+                $_SESSION['signatureForm'] = $form;
+                // $session = new Container('form');
+                // $session->offsetSet('signatureForm', $form);
             }
         }
 
