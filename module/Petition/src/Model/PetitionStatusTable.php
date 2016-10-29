@@ -21,18 +21,55 @@ class PetitionStatusTable
         $this->petitionStatusTableGateway = $petitionStatusTableGateway;
     }
 
-    public function getPetitionStatusesByPetitionId($pid)
+    public function getPetitionStatuses($params)
     {
-        $pid  = (int) $pid;
         $select = new Select();
         $select
             ->from(array('s' => 'PetitionStatus'))
-            ->columns(array('*'))
-            ->where(array('pid' => $pid))
-            ->order(array('date DESC'));
+            ->columns(array('*'));
+
+        // Always order by date
+        $select->order('s.date DESC');
+
+        // Check id
+        $id = isset($params['id']) ? (int)$params['id'] : 0;
+        if ($id) {
+            $select->where(array('s.id' => $id));
+        }
+
+        // Check special id
+        if (isset($params['id']) && $params['id'] == 'latest') {
+            $select
+                ->limit(1)
+                ->where->lessThanOrEqualTo('s.date', 'CURRENT_TIMESTAMP');
+        }
+
+        // Check petition id
+        $pid = isset($params['pid']) ? (int)$params['pid'] : 0;
+        if ($pid) {
+            $select->where(array('s.pid' => $pid));
+        }
+
+        // Check limit
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 0;
+        if ($limit) {
+            $select->limit($limit);
+        }
+
+        // Check offset
+        $offset = isset($params['offset']) ? (int)$params['offset'] : 0;
+        if ($offset) {
+            $select->offset($offset);
+        }
+
+        $row = $this->petitionStatusTableGateway->selectWith($select);
+
+        if ($row === null) {
+            return array();
+        }
 
         $results = array();
-        foreach ($this->petitionStatusTableGateway->selectWith($select) as $result) {
+        foreach ($row as $result) {
             array_push($results, $result);
         }
 

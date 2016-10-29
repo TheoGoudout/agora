@@ -163,7 +163,7 @@ class PetitionTable
 
             if (array_key_exists('status', $params)) {
                 // Retrieve statuses
-                $result->statuses = $this->petitionStatusTable->getPetitionStatusesByPetitionId($result->id);
+                $result->statuses = $this->petitionStatusTable->getPetitionStatuses(array('pid' => $result->id));
                 if (count($result->statuses) > 0) {
                     $result->latestStatus = $result->statuses[0]->content;
                     $result->latestStatusDate = $result->statuses[0]->date;
