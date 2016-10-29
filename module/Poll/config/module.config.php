@@ -27,22 +27,6 @@ return [
                     ],
                 ],
             ],
-            'answer' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/[:lang/]poll/:pid/answer/:aid',
-                    'constraints' => [
-                        'lang'   => '[a-z]{2}_[A-Z]{2}',
-                        'pid'    => '[0-9]+',
-                        'aid'    => '[0-9]+',
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\PollAnswerController::class,
-                        'action'     => 'index',
-                        'lang'       => 'fr_FR',
-                    ],
-                ],
-            ],
             'vote' => [
                 'type' => Segment::class,
                 'options' => [

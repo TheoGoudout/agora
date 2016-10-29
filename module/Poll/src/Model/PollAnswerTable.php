@@ -23,64 +23,87 @@ class PollAnswerTable
         $this->pollVoteTable          = $pollVoteTable;
     }
 
-    public function getPollAnswerById($id, $votes = false)
+    protected function getPollAnswersFromSelect($params, Select $select)
     {
-        $id  = (int) $id;
-
-        $select = new Select();
-        $select
-            ->from(array('a' => 'PollAnswer'))
-            ->columns(array('*'))
-            ->where(array('a.id' => $id));
-
-        if ($votes === false) {
-            $select
-                ->columns(array('*', 'voteCount' => new \Zend\Db\Sql\Expression('COUNT(v.id)')))
-                ->join(array('v' => 'PollVote'), 'a.id = v.aid', array(), $select::JOIN_LEFT)
-                ->where(array('v.validationStatus' => 1))
-                ->group('a.id');
+        // Order by vote count by default
+        $order = isset($params['order']) ? (string)$params['order'] : 'v1.voteCount DESC';
+        if ($order) {
+            $select->order($order);
         }
 
-        $result = $this->pollAnswerTableGateway->selectWith($select)->current();
-        if ($votes === true) {
-            $result->votes = $this->pollVoteTable->getPollVotesByPollAnswerId($result->id);
-            $result->voteCount = count($result->votes);
+        // Check id
+        $id = isset($params['id']) ? (int)$params['id'] : 0;
+        if ($id) {
+            $select->where(array('a.id' => $id));
         }
 
-        return $result;
-    }
-
-    public function getPollAnswersByPollId($pid, $votes = false)
-    {
-        $pid  = (int) $pid;
-
-        $select = new Select();
-        $select
-            ->from(array('a' => 'PollAnswer'))
-            ->columns(array('*'))
-            ->where(array('a.pid' => $pid));
-
-        if ($votes === false) {
-            $subselect = new Select();
-            $subselect
-                ->from(array('v1' => 'PollVote'))
-                ->columns(array('*'))
-                ->where(array('v1.validationStatus' => 1));
-
+        // Check special id
+        if (isset($params['id']) && $params['id'] == 'latest') {
             $select
-                ->columns(array('*', 'voteCount' => new \Zend\Db\Sql\Expression('COUNT(v.id)')))
-                ->join(array('v' => $subselect), 'a.id = v.aid', array(), $select::JOIN_LEFT)
-                ->group('a.id');
+                ->limit(1)
+                ->where->lessThanOrEqualTo('a.creationDate', 'CURRENT_TIMESTAMP');
+        }
+
+        // Check limit
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 0;
+        if ($limit) {
+            $select->limit($limit);
+        }
+
+        // Check poll id
+        $pid = isset($params['pid']) ? (int)$params['pid'] : 0;
+        if ($pid) {
+            $select->where(array('a.pid' => $pid));
+        }
+
+        // Check offset
+        $offset = isset($params['offset']) ? (int)$params['offset'] : 0;
+        if ($offset) {
+            $select->offset($offset);
+        }
+
+        $row = $this->pollAnswerTableGateway->selectWith($select);
+
+        if ($row === null) {
+            return array();
         }
 
         $results = array();
-        foreach ($this->pollAnswerTableGateway->selectWith($select) as $result) {
-            if ($votes === true) {
-                $result->votes = $this->pollVoteTable->getPollVotesByPollAnswerId($result->id);
+        foreach ($row as $result) {
+            array_push($results, $result);
+        }
+
+        return $results;
+    }
+
+    public function getPollAnswers($params)
+    {
+        $subselect = new Select();
+        $subselect
+            ->from(array('v' => 'PollVote'))
+            ->columns(
+                array('aid', 'voteCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(v.id),0)'))
+            )
+            ->group(array('aid'));
+
+        $select = new Select();
+        $select
+            ->from(array('a' => 'PollAnswer'))
+            ->columns(array('*'));
+
+        if ($subselect !== null) {
+            $select
+                ->join(array('v1' => $subselect), 'v1.aid = a.id', array('voteCount'), $select::JOIN_LEFT);
+        }
+
+        $results = $this->getPollAnswersFromSelect($params, $select);
+
+        foreach ($results as $result) {
+            if (isset($params['votes']) && $params['votes']) {
+                // Retrieve votes
+                $result->votes = $this->pollVoteTable->getPollVotes(array('aid' => $result->id));
                 $result->voteCount = count($result->votes);
             }
-
-            array_push($results, $result);
         }
 
         return $results;
