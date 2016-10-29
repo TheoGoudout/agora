@@ -21,29 +21,55 @@ class PetitionMailingListTable
         $this->petitionMailingListTableGateway = $petitionMailingListTableGateway;
     }
 
-    public function getPetitionMailingListById($id)
+    public function getPetitionMailingLists($params)
     {
-        $id  = (int) $id;
-        $rowset = $this->petitionMailingListTableGateway->select(array('id' => $id));
-        $row = $rowset->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
-        }
-        return $row;
-    }
-
-    public function getPetitionMailingListsByPetitionId($pid)
-    {
-        $pid  = (int) $pid;
         $select = new Select();
         $select
             ->from(array('m' => 'PetitionMailingList'))
-            ->columns(array('*'))
-            ->where(array('pid' => $pid))
-            ->order(array('creationDate DESC'));
+            ->columns(array('*'));
+
+        // Always order by date
+        $select->order('m.creationDate DESC');
+
+        // Check id
+        $id = isset($params['id']) ? (int)$params['id'] : 0;
+        if ($id) {
+            $select->where(array('m.id' => $id));
+        }
+
+        // Check special id
+        if (isset($params['id']) && $params['id'] == 'latest') {
+            $select
+                ->limit(1)
+                ->where->lessThanOrEqualTo('m.creationDate', 'CURRENT_TIMESTAMP');
+        }
+
+        // Check petition id
+        $pid = isset($params['pid']) ? (int)$params['pid'] : 0;
+        if ($pid) {
+            $select->where(array('m.pid' => $pid));
+        }
+
+        // Check limit
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 0;
+        if ($limit) {
+            $select->limit($limit);
+        }
+
+        // Check offset
+        $offset = isset($params['offset']) ? (int)$params['offset'] : 0;
+        if ($offset) {
+            $select->offset($offset);
+        }
+
+        $row = $this->petitionMailingListTableGateway->selectWith($select);
+
+        if ($row === null) {
+            return array();
+        }
 
         $results = array();
-        foreach ($this->petitionMailingListTableGateway->selectWith($select) as $result) {
+        foreach ($row as $result) {
             array_push($results, $result);
         }
 
@@ -62,7 +88,7 @@ class PetitionMailingListTable
         if ($id == 0) {
             $this->petitionMailingListTableGateway->insert($data);
         } else {
-            if ($this->getPetitionMailingListById($id)) {
+            if ($this->getPetitionMailingLists(array('id' => $id))) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('PetitionMailingList id does not exist');

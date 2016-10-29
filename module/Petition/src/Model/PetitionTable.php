@@ -178,7 +178,7 @@ class PetitionTable
 
             if (array_key_exists('mailingList', $params)) {
                 // Retrieve mailing list subscriptions
-                $result->mailingLists = $this->petitionMailingListTable->getPetitionMailingListsByPetitionId($result->id);
+                $result->mailingLists = $this->petitionMailingListTable->getPetitionMailingLists(array('pid' => $result->id));
                 $result->mailingListCount = count($result->mailingLists);
             }
         }
