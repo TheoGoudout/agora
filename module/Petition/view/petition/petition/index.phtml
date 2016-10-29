@@ -1,4 +1,6 @@
 <?php
+    $this->headTitle($petition->title);
+
     $signatureForm->setAttribute('action', $this->url('signature', ['action' => 'add', 'pid' => $petition->id], [], true));
     $signatureForm->prepare();
 
