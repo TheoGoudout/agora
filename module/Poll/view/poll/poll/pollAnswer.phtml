@@ -3,13 +3,13 @@
         <header>
             <h2><?= $answer->content; ?></h2>
             <ul class="inlined">
-                <li>Ajouté le <?= $answer->creationDate; ?></li>
-                <li>Proposé par <?= $answer->author; ?></li>
+                <li><?= sprintf($this->translate('Ajouté le %s'), $answer->creationDate); ?></li>
+                <li><?= sprintf($this->translate('Proposé par %s'), $answer->author); ?></li>
             </ul>
         </header>
     </a>
     <div class="tab">
         <progress max="<?= $totalVoteCount; ?>" value="<?= $answer->voteCount; ?>"></progress>
-        <span class="count"><?= $answer->voteCount ? $answer->voteCount : 0; /* TODO : format */ ?> votes</span>
+        <span class="count"><?= sprintf($this->translate('%s votes'), $answer->voteCount ? $answer->voteCount : 0); /* TODO : format */ ?></span>
     </div>
 </div>

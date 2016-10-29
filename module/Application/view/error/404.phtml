@@ -12,19 +12,19 @@
 $reasonMessage= '';
 switch ($this->reason) {
     case 'error-controller-cannot-dispatch':
-        $reasonMessage = $this->translate('The requested controller was unable to dispatch the request.');
+        $reasonMessage = $this->translate('Le controlleur demandé n\'a pas pu traité la requête.');
         break;
     case 'error-controller-not-found':
-        $reasonMessage = $this->translate('The requested controller could not be mapped to an existing controller class.');
+        $reasonMessage = $this->translate('Le controlleur demandé n\'a pas pu être associé à une classe de controlleur existant.');
         break;
     case 'error-controller-invalid':
-        $reasonMessage = $this->translate('The requested controller was not dispatchable.');
+        $reasonMessage = $this->translate('Le controlleur demandé n\'est pas traitable.');
         break;
     case 'error-router-no-match':
-        $reasonMessage = $this->translate('The requested URL could not be matched by routing.');
+        $reasonMessage = $this->translate('L\'URL demandée n\'a pas pu être associée à une route.');
         break;
     default:
-        $reasonMessage = $this->translate('We cannot determine at this time why a 404 was generated.');
+        $reasonMessage = $this->translate('Nous n\'avons pas pu déterminer pour une erreur 404 est survenue.');
         break;
 }
 ?>
@@ -41,14 +41,14 @@ switch ($this->reason) {
 <?php if (isset($this->controller) && $this->controller): ?>
 
 <dl>
-    <dt>Controller:</dt>
+    <dt><?= $this->translate('Controlleur:'); ?></dt>
     <dd><?= $this->escapeHtml($this->controller) ?>
 <?php
 if (isset($this->controller_class)
     && $this->controller_class
     && $this->controller_class != $this->controller
 ) {
-    echo '(' . sprintf($this->translate('resolves to %s'), $this->escapeHtml($this->controller_class)) . ')';
+    echo '(' . sprintf($this->translate('résolu en %s'), $this->escapeHtml($this->controller_class)) . ')';
 }
 ?>
 </dd>
@@ -60,18 +60,18 @@ if (isset($this->controller_class)
 
 <?php if(isset($this->exception) && ($this->exception instanceof Exception || $this->exception instanceof Error)): ?>
 <hr/>
-<h2>Additional information:</h2>
+<h2><?= $this->translate('Informations additionnelles:'); ?></h2>
 <h3><?= get_class($this->exception) ?></h3>
 <dl>
-    <dt>File:</dt>
+    <dt><?= $this->translate('Fichier:'); ?></dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->exception->getFile() ?>:<?= $this->exception->getLine() ?></pre>
     </dd>
-    <dt>Message:</dt>
+    <dt><?= $this->translate('Message:'); ?></dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->exception->getMessage() ?></pre>
     </dd>
-    <dt>Stack trace:</dt>
+    <dt><?= $this->translate('Stack trace:'); ?></dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->exception->getTraceAsString() ?></pre>
     </dd>
@@ -82,21 +82,21 @@ if (isset($this->controller_class)
     if ($e) :
 ?>
 <hr/>
-<h2>Previous exceptions:</h2>
+<h2><?= $this->translate('Exceptions précédentes:'); ?></h2>
 <ul class="unstyled">
     <?php while($e) : ?>
     <li>
         <h3><?= get_class($e) ?></h3>
         <dl>
-            <dt>File:</dt>
+            <dt><?= $this->translate('Fichier:'); ?></dt>
             <dd>
                 <pre class="prettyprint linenums"><?= $e->getFile() ?>:<?= $e->getLine() ?></pre>
             </dd>
-            <dt>Message:</dt>
+            <dt><?= $this->translate('Message:'); ?></dt>
             <dd>
                 <pre class="prettyprint linenums"><?= $e->getMessage() ?></pre>
             </dd>
-            <dt>Stack trace:</dt>
+            <dt><?= $this->translate('Stack trace:'); ?></dt>
             <dd>
                 <pre class="prettyprint linenums"><?= $e->getTraceAsString() ?></pre>
             </dd>
@@ -106,7 +106,7 @@ if (isset($this->controller_class)
         $e = $e->getPrevious();
         $icount += 1;
         if ($icount >=50) {
-            echo $this->translate("<li>There may be more exceptions, but we have no enough memory to proccess it.</li>");
+            echo $this->translate("<li>Il se peut qu'il y ai plus d'exceptions, mais la mémoire du processus est limitée.</li>");
             break;
         }
         endwhile;
@@ -116,7 +116,7 @@ if (isset($this->controller_class)
 
 <?php else: ?>
 
-<h3><?= $this->translate('No Exception available'); ?></h3>
+<h3><?= $this->translate('Aucune exception disponible.'); ?></h3>
 
 <?php endif ?>
 

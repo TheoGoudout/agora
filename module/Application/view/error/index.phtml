@@ -1,15 +1,15 @@
 <?php $this->headTitle('Erreur');?>
-<h1><?= $this->translate('An error occurred'); ?></h1>
+<h1><?= $this->translate('Une erreur est survenue'); ?></h1>
 <h2><?= $this->message ?></h2>
 
 <?php if (isset($this->display_exceptions) && $this->display_exceptions): ?>
 
 <?php if(isset($this->exception) && ($this->exception instanceof Exception || $this->exception instanceof Error)): ?>
 <hr/>
-<h2><?= $this->translate('Additional information:'); ?></h2>
+<h2><?= $this->translate('Informations additionnelles:'); ?></h2>
 <h3><?= get_class($this->exception) ?></h3>
 <dl>
-    <dt><?= $this->translate('File:'); ?></dt>
+    <dt><?= $this->translate('Fichier:'); ?></dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->exception->getFile() ?>:<?= $this->exception->getLine() ?></pre>
     </dd>
@@ -28,13 +28,13 @@
     if ($e) :
 ?>
 <hr/>
-<h2><?= $this->translate('Previous exceptions:'); ?></h2>
+<h2><?= $this->translate('Exceptions précédentes:'); ?></h2>
 <ul class="unstyled">
     <?php while($e) : ?>
     <li>
         <h3><?= get_class($e) ?></h3>
         <dl>
-            <dt><?= $this->translate('File:'); ?></dt>
+            <dt><?= $this->translate('Fichier:'); ?></dt>
             <dd>
                 <pre class="prettyprint linenums"><?= $e->getFile() ?>:<?= $e->getLine() ?></pre>
             </dd>
@@ -52,7 +52,7 @@
         $e = $e->getPrevious();
         $icount += 1;
         if ($icount >= 50) {
-            echo $this->translate("<li>There may be more exceptions, but we have no enough memory to proccess it.</li>");
+            echo $this->translate("<li>Il se peut qu'il y ai plus d'exceptions, mais la mémoire du processus est limitée.</li>");
             break;
         }
         endwhile;
@@ -62,7 +62,7 @@
 
 <?php else: ?>
 
-<h3><?= $this->translate('No Exception available'); ?></h3>
+<h3><?= $this->translate('Aucune exception disponible.'); ?></h3>
 
 <?php endif ?>
 

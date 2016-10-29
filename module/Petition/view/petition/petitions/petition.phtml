@@ -3,8 +3,12 @@
         <header>
             <h2><?= $petition->title; ?></h2>
             <ul class="inlined">
+                <?php if ($petition->latestStatus) {?>
                 <li><?= $petition->latestStatus; ?></li>
-                <li><?= $petition->latestStatusDate; ?></li>
+                <?php } ?>
+                <?php if ($petition->latestStatusDate) {?>
+                <li><?= sprintf($this->translate('Le %s'), $petition->latestStatusDate); ?></li>
+                <?php } ?>
             </ul>
         </header>
     </a>
@@ -13,7 +17,7 @@
             if ($petition->latestStatus == 'En attente d\'e-signatures') {
         ?>
             <progress max="500000" value="<?= $petition->signatureCount; ?>"></progress>
-            <span class="count"><?= $petition->signatureCount ? $petition->signatureCount : 0; /* TODO : format */ ?> e-signatures</span>
+            <span class="count"><?= sprintf($this->translate('%s e-signatures'), $petition->signatureCount ? $petition->signatureCount : 0); /* TODO : format */ ?></span>
         <?php
             } else {
             // TODO

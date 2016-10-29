@@ -1,7 +1,7 @@
 <article>
     <div class="item">
         <header>
-            <h2>Signer la pétition "<?= $title; ?>"</h2>
+            <h2><?= sprintf($this->translate('Signer la pétition "%s"'), $title); ?></h2>
         </header>
         <div class="tab">
             <?= $this->form()->openTag($signatureForm); ?>
@@ -16,7 +16,7 @@
                     );
                 ?>
                 <fieldset>
-                    <legend>Identité</legend>
+                    <legend><?= $this->translate('Identité'); ?></legend>
                     <table>
                         <tr>
                             <td class="mandatory"><?= $this->formLabel($signatureForm->get('gender')); ?></td>
@@ -33,7 +33,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Adresse</legend>
+                    <legend><?= $this->translate('Adresse</'); ?>legend>
                     <table>
                         <tr>
                             <td class="mandatory"><?= $this->formLabel($signatureForm->get('address1')); ?></td>
@@ -58,7 +58,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Valider</legend>
+                    <legend><?= $this->translate('Valider'); ?></legend>
                     <div>
                         <span class="mandatory"><?= $this->formLabel($signatureForm->get('agreement')); ?></span>
                         <?= $this->FormCheckbox($signatureForm->get('agreement')); ?>
@@ -71,7 +71,7 @@
             <?= $this->form()->openTag($mailingListForm); ?>
                 <?= $this->formHidden($mailingListForm->get('pid')); ?>
                 <fieldset>
-                    <legend>Newsletter</legend>
+                    <legend><?= $this->translate('Newsletter'); ?></legend>
                     <div>
                         <?= $this->formLabel($mailingListForm->get('email')); ?>
                     <div>
@@ -80,7 +80,7 @@
                         <?= $this->formSubmit($mailingListForm->get('submit')); ?>
                     </div>
                 </fieldset>
-                <p class="red">* Champs obligatoires</p>
+                <p class="red">* <?= $this->translate('Champs obligatoires'); ?></p>
         </div>
     </div>
 </article>

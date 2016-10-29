@@ -3,7 +3,7 @@
         <header>
             <h1><?= $poll->content; ?></h1>
             <ul class="inlined">
-                <li>Fin du vote le <?= $poll->startDate;?></li>
+                <li><?= sprintf($this->translate('Fin du vote le %s'), $poll->startDate); ?></li>
             </ul>
         </header>
     </a>

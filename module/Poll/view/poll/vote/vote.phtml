@@ -3,6 +3,6 @@
 		<meta http-equiv="refresh" content="0; url=<?= $this->url('vote', ['pid' => $vote->pid, 'aid' => $vote->aid, 'action' => 'confirmVote', 'param' => $vote->validationValue], [], true)?>" />
 	</head>
 	<body>
-		<a href="<?= $this->url('vote', ['pid' => $vote->pid, 'aid' => $vote->aid, 'action' => 'confirmVote', 'param' => $vote->validationValue], [], true)?>">Redirect</a>
+		<a href="<?= $this->url('vote', ['pid' => $vote->pid, 'aid' => $vote->aid, 'action' => 'confirmVote', 'param' => $vote->validationValue], [], true)?>"><?= $this->translate('Redirection'); ?></a>
 	</body>
 </html>

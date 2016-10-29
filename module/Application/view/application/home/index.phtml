@@ -1,12 +1,8 @@
 <?php $this->headTitle('Accueil');?>
 <header class="hiddable">
-    <h1>Bienvenu sur Agora pétitions!</h1>
-    <p>Ce site propose des pétitions de haute qualité la ou tous les autres proposent des pétitions en quantité.</p>
-    <p>Tous les deux mois, une nouvelle pétition sur le sujet de votre choix est publiée. Grâce à l'expertise d'avocats, la qualité et la faisabilité de nos pétitions sont assurées.</p>
-    <!--
-    <p>Si la pétition vous interèsse, il vous suffit de la signer éléctroniquement. Une fois les 500 000 e-signatures atteintes, vous recevrez chez vous la pétition au format papier ainsi qu'une enveloppe pré-affranchie. Il ne vous reste plus qu'à la signer et la mettre dans une boite à lettres.</p>
-    <p>Pour chaque pétition, nous vous tiendrons informé des évolutions. En revanche, nous refusons de "spammer". Aussi vous recevrez uniquement des informations sur les pétitions que vous avez choisies.</p>
-    -->
+    <h1><?= $this->translate('Bienvenu sur Agora pétitions!'); ?></h1>
+    <p><?= $this->translate('Ce site propose des pétitions de haute qualité la ou tous les autres proposent des pétitions en quantité.'); ?></p>
+    <p><?= $this->translate('Tous les deux mois, une nouvelle pétition sur le sujet de votre choix est publiée. Grâce à l\'expertise d\'avocats, la qualité et la faisabilité de nos pétitions sont assurées.'); ?></p>
 </header>
 <section>
 <?php
@@ -14,7 +10,7 @@
 ?>
         <article>
             <header>
-                <h1>Dernière pétition publiée</h1>
+                <h1><?= $this->translate('Dernière pétition publiée'); ?></h1>
             </header>
 <?php
             echo $this->partial(
@@ -41,7 +37,7 @@
 ?>
         <article>
             <header>
-                <h1>Liste des dernière pétitions</h1>
+                <h1><?= $this->translate('Liste des dernière pétitions'); ?></h1>
             </header>
 <?php
             foreach ($oldPetitions as $petition) {
