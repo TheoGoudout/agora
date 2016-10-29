@@ -28,7 +28,7 @@ class HomeController extends AbstractActionController
 
     public function indexAction()
     {
-        $latestPoll     = $this->pollTable->getPolls(array('id' => 'latest', 'answers' => true));
+        $latestPoll     = $this->pollTable->getPolls(array('id' => 'latest', 'answers' => array('limit' => 3)));
         $latestPetition = $this->petitionTable->getPetitions(array('id' => 'latest'));
         $oldPetitions   = $this->petitionTable->getPetitions(array('limit' => 5, 'offset' => 1));
 
