@@ -172,7 +172,7 @@ class PetitionTable
 
             if (array_key_exists('signature', $params)) {
                 // Retrieve signatures
-                $result->signatures = $this->petitionSignatureTable->getPetitionSignaturesByPetitionId($result->id);
+                $result->signatures = $this->petitionSignatureTable->getPetitionSignatures(array('pid' => $result->id));
                 $result->signatureCount = count($result->signatures);
             }
 

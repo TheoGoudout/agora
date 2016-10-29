@@ -23,15 +23,59 @@ class PetitionSignatureTable
         $this->petitionSignatureTableGateway = $petitionSignatureTableGateway;
     }
 
-    public function getPetitionSignatureById($id)
+    public function getPetitionSignatures($params)
     {
-        $id  = (int) $id;
-        $rowset = $this->petitionSignatureTableGateway->select(array('id' => $id));
-        $row = $rowset->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
+        $select = new Select();
+        $select
+            ->from(array('s' => 'PetitionSignature'))
+            ->columns(array('*'));
+
+        // Always order by date
+        $select->order('s.creationDate DESC');
+
+        // Check id
+        $id = isset($params['id']) ? (int)$params['id'] : 0;
+        if ($id) {
+            $select->where(array('s.id' => $id));
         }
-        return $row;
+
+        // Check special id
+        if (isset($params['id']) && $params['id'] == 'latest') {
+            $select
+                ->limit(1)
+                ->where->lessThanOrEqualTo('s.creationDate', 'CURRENT_TIMESTAMP');
+        }
+
+        // Check petition id
+        $pid = isset($params['pid']) ? (int)$params['pid'] : 0;
+        if ($pid) {
+            $select->where(array('s.pid' => $pid));
+        }
+
+        // Check limit
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 0;
+        if ($limit) {
+            $select->limit($limit);
+        }
+
+        // Check offset
+        $offset = isset($params['offset']) ? (int)$params['offset'] : 0;
+        if ($offset) {
+            $select->offset($offset);
+        }
+
+        $row = $this->petitionSignatureTableGateway->selectWith($select);
+
+        if ($row === null) {
+            return array();
+        }
+
+        $results = array();
+        foreach ($row as $result) {
+            array_push($results, $result);
+        }
+
+        return $results;
     }
 
     public function getPetitionSignaturesByPetitionId($pid)
@@ -70,7 +114,7 @@ class PetitionSignatureTable
         if ($id == 0) {
             $this->petitionSignatureTableGateway->insert($data);
         } else {
-            if ($this->getPetitionSignatureById($id)) {
+            if ($this->getPetitionSignatures(array('id' => $id))) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('PetitionSignature id does not exist');
