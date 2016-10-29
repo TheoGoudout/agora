@@ -21,57 +21,70 @@ class PollVoteTable
         $this->pollVoteTableGateway = $pollVoteTableGateway;
     }
 
-    public function getPollVoteByPollIdAndIpAddress($pid, $ipAddress)
+    public function getPollVotes($params)
     {
-        $id  = (int) $id;
         $select = new Select();
         $select
             ->from(array('v' => 'PollVote'))
-            ->columns(array('*'))
-            ->where(array(
-                'pid'       => $pid,
-                'ipAddress' => $ipAddress
-            ))
-            ->order(array('creationDate DESC'));
+            ->columns(array('*'));
 
-        $result = $this->pollVoteTableGateway->selectWith($select)->current();
-        if (!$result) {
-            throw new \Exception("Could not find PollVote with PID : $pid and IP address : $ipAddress");
+        // Order by creationDate by default
+        $order = isset($params['order']) ? (string)$params['order'] : 'v.creationDate DESC';
+        if ($order) {
+            $select->order($order);
         }
 
-        return $result;
-    }
-
-    public function getPollVotesByPollId($pid)
-    {
-        $pid  = (int) $pid;
-        $select = new Select();
-        $select
-            ->from(array('v' => 'PollVote'))
-            ->columns(array('*'))
-            ->where(array('pid' => $pid))
-            ->order(array('creationDate DESC'));
-
-        $results = array();
-        foreach ($this->pollVoteTableGateway->selectWith($select) as $result) {
-            array_push($results, $result);
+        // Check id
+        $id = isset($params['id']) ? (int)$params['id'] : 0;
+        if ($id) {
+            $select->where(array('v.id' => $id));
         }
 
-        return $results;
-    }
+        // Check special id
+        if (isset($params['id']) && $params['id'] == 'latest') {
+            $select
+                ->limit(1)
+                ->where->lessThanOrEqualTo('v.creationDate', 'CURRENT_TIMESTAMP');
+        }
 
-    public function getPollVotesByPollAnswerId($aid)
-    {
-        $aid  = (int) $aid;
-        $select = new Select();
-        $select
-            ->from(array('v' => 'PollVote'))
-            ->columns(array('*'))
-            ->where(array('aid' => $aid))
-            ->order(array('creationDate DESC'));
+        // Check limit
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 0;
+        if ($limit) {
+            $select->limit($limit);
+        }
+
+        // Check poll id
+        $pid = isset($params['pid']) ? (int)$params['pid'] : 0;
+        if ($pid) {
+            $select->where(array('v.pid' => $pid));
+        }
+
+        // Check answer id
+        $aid = isset($params['aid']) ? (int)$params['aid'] : 0;
+        if ($aid) {
+            $select->where(array('v.aid' => $aid));
+        }
+
+        // Check ip address
+        $ipAddress = isset($params['ipAddress']) ? (string)$params['ipAddress'] : '';
+        if ($ipAddress) {
+            $select->where(array('v.ipAddress' => $ipAddress));
+        }
+
+        // Check offset
+        $offset = isset($params['offset']) ? (int)$params['offset'] : 0;
+        if ($offset) {
+            $select->offset($offset);
+        }
+
+        $row = $this->pollVoteTableGateway->selectWith($select);
+
+        if ($row === null) {
+            return array();
+        }
 
         $results = array();
-        foreach ($this->pollVoteTableGateway->selectWith($select) as $result) {
+        foreach ($row as $result) {
             array_push($results, $result);
         }
 

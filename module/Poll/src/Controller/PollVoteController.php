@@ -30,20 +30,25 @@ class PollVoteController extends AbstractActionController
         // Add/update vote for given IP and update validation value
         $success = $this->pollVoteTable->setPollVote($pid, $aid, $ipAddress);
 
-        if ($success == true) {
-            $result = new ViewModel(array(
-                'vote' => $this->pollVoteTable->getPollVoteByPollIdAndIpAddress($pid, $ipAddress),
-            ));
-            $result->setTerminal(true);
-            $result->setVariables(array('items' => 'items'));
-            return $result;
-        } else {
-            return new ViewModel();
+        if (!$success) {
+            throw new \Exception('Unable to add PollVote into table');
         }
 
+        $vote = $this->pollVoteTable->getPollVotes(array('pid' => $pid, 'ipAddress' => $ipAddress));
 
-        // Redirect to vote confirmation
-//        return $this->redirect()->toRoute('vote', ['action' => 'confirmVote', 'param' => $row->validationValue], [], true);
+        if (count($vote) !== 1) {
+            throw new \Exception("Could not find PollVote with PID : $pid an IP address $ipAddress");
+        } else {
+            $vote = $vote[0];
+        }
+
+        return new ViewModel(array(
+            'vote' => $vote,
+        ));
+
+        $result->setTerminal(true);
+        $result->setVariables(array('items' => 'items'));
+        return $result;
     }
 
     public function confirmVoteAction()
