@@ -7,17 +7,24 @@
 
 namespace Petition\Model;
 
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Update;
 
-class PetitionMailingListTable
+class PetitionMailingListTable extends I18nModel
 {
     protected $petitionMailingListTableGateway;
 
-    public function __construct(TableGateway $petitionMailingListTableGateway)
+    public function __construct(
+        TranslatorInterface $translator,
+        TableGateway        $petitionMailingListTableGateway)
     {
+        parent::__construct($translator);
+
         $this->petitionMailingListTableGateway = $petitionMailingListTableGateway;
     }
 
@@ -87,12 +94,10 @@ class PetitionMailingListTable
         $id = (int) $mailingList->id;
         if ($id == 0) {
             $this->petitionMailingListTableGateway->insert($data);
+        } else if ($this->getPetitionMailingLists(array('id' => $id))) {
+            $this->tableGateway->update($data, array('id' => $id));
         } else {
-            if ($this->getPetitionMailingLists(array('id' => $id))) {
-                $this->tableGateway->update($data, array('id' => $id));
-            } else {
-                throw new \Exception('PetitionMailingList id does not exist');
-            }
+            throw new \Exception($this->tr('PetitionMailingList id $id n\'existe pas'));
         }
     }
 

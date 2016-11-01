@@ -27,16 +27,13 @@ class Module implements ConfigProviderInterface
             'factories' => [
                 Controller\PollController::class => function($container) {
                     return new Controller\PollController(
+                        $container->get(\Zend\I18n\Translator\TranslatorInterface::class),
                         $container->get(Model\PollTable::class)
-                    );
-                },
-                Controller\PollAnswerController::class => function($container) {
-                    return new Controller\PollAnswerController(
-                        $container->get(Model\PollAnswerTable::class)
                     );
                 },
                 Controller\PollVoteController::class => function($container) {
                     return new Controller\PollVoteController(
+                        $container->get(\Zend\I18n\Translator\TranslatorInterface::class),
                         $container->get(Model\PollVoteTable::class)
                     );
                 },
@@ -50,6 +47,7 @@ class Module implements ConfigProviderInterface
             'factories' => [
                 Model\PollTable::class => function($container) {
                     return new Model\PollTable(
+                        $container->get(\Zend\I18n\Translator\TranslatorInterface::class),
                         $container->get(Model\PollTableGateway::class),
                         $container->get(Model\PollAnswerTable::class),
                         $container->get(Model\PollVoteTable::class)
@@ -57,32 +55,37 @@ class Module implements ConfigProviderInterface
                 },
                 Model\PollAnswerTable::class => function($container) {
                     return new Model\PollAnswerTable(
+                        $container->get(\Zend\I18n\Translator\TranslatorInterface::class),
                         $container->get(Model\PollAnswerTableGateway::class),
                         $container->get(Model\PollVoteTable::class)
                     );
                 },
                 Model\PollVoteTable::class => function($container) {
                     return new Model\PollVoteTable(
+                        $container->get(\Zend\I18n\Translator\TranslatorInterface::class),
                         $container->get(Model\PollVoteTableGateway::class)
                     );
                 },
 
                 Model\PollTableGateway::class => function ($container) {
+                    $translator = $container->get(\Zend\I18n\Translator\TranslatorInterface::class);
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Poll());
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Poll($translator));
                     return new TableGateway('Poll', $dbAdapter, null, $resultSetPrototype);
                 },
                 Model\PollAnswerTableGateway::class => function ($container) {
+                    $translator = $container->get(\Zend\I18n\Translator\TranslatorInterface::class);
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\PollAnswer());
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\PollAnswer($translator));
                     return new TableGateway('PollAnswer', $dbAdapter, null, $resultSetPrototype);
                 },
                 Model\PollVoteTableGateway::class => function ($container) {
+                    $translator = $container->get(\Zend\I18n\Translator\TranslatorInterface::class);
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\PollVote());
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\PollVote($translator));
                     return new TableGateway('PollVote', $dbAdapter, null, $resultSetPrototype);
                 },
             ],

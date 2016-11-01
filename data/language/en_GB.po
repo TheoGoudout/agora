@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: agora\n"
-"POT-Creation-Date: 2016-10-26 15:10+0200\n"
-"PO-Revision-Date: 2016-10-26 15:13+0200\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-11-01 17:19+0100\n"
+"PO-Revision-Date: 2016-11-01 17:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -13,119 +13,390 @@ msgstr ""
 "X-Poedit-Basepath: ../../module\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-KeywordsList: tr;translate\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Application/view/error/404.phtml:4
+#: Application/src/Controller/HomeController.php:42
+msgid "Impossible de trouver la dernière pétition"
+msgstr ""
+
+#: Application/src/Controller/HomeController.php:48
+msgid "Impossible de trouver le dernier vote"
+msgstr ""
+
+#: Petition/src/Controller/PetitionController.php:51
+msgid "Je signe!"
+msgstr ""
+
+#: Petition/src/Controller/PetitionController.php:61
+msgid "Je m'inscris à la mailing list!"
+msgstr ""
+
+#: Petition/src/Form/PetitionMailingListForm.php:29
+msgid ""
+"Souhaitez-vous vous inscrire à la newsletter de cette pétition? Vous ne "
+"recevrez que des informations sur cette pétition et rien d'autre! Nous avons "
+"une politique très stricte vis-à-vis du spam!"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:29
+msgid "Titre"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:38
+msgid "Prénom"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:43
+msgid "Nom"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:48
+msgid "Adresse ligne 1"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:53
+msgid "Adresse ligne 2"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:58
+msgid "Adresse ligne 3"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:63
+msgid "Code postal"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:68
+msgid "Ville"
+msgstr ""
+
+#: Petition/src/Form/PetitionSignatureForm.php:73
+msgid ""
+"En signant éléctroniquement cette pétition je reconnais avoir pris "
+"connaissance de cele-ci et jure sur l'honneur être de nationalité française "
+"ou résider régulièrement en France. Je m'engage aussi à faire parvenir une "
+"copie papier signée de cette pétition à Agora Pétition dans le cas ou celle-"
+"ci dépasse les 500 000 signatures éléctroniques."
+msgstr ""
+
+#: Petition/src/Model/PetitionMailingList.php:47
+#: Petition/src/Model/PetitionSignature.php:60
+msgid "Non implémentée"
+msgstr ""
+
+#: Petition/src/Model/PetitionMailingList.php:63
+msgid "Votre adresse e-mail n'est pas valide"
+msgstr ""
+
+#: Petition/src/Model/PetitionMailingListTable.php:100
+msgid "PetitionMailingList id $id n'existe pas"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignature.php:87
+msgid "Vous devez renseigner votre titre"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignature.php:105
+msgid "Vous devez renseigner votre prénom"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignature.php:130
+msgid "Vous devez renseigner votre nom"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignature.php:155
+msgid "Vous devez renseigner votre adresse"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignature.php:215
+msgid "Vous devez renseigner votre code postal"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignature.php:239
+msgid "Vous devez renseigner votre ville"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignature.php:262
+msgid "Vous devez accepter les termes de la signatures éléctronique"
+msgstr ""
+
+#: Petition/src/Model/PetitionSignatureTable.php:126
+msgid "PetitionSignature id $id n'existe pas"
+msgstr ""
+
+#: Application/view/application/home/about.phtml:3
+msgid "Qui sommes-nous?"
+msgstr ""
+
+#: Application/view/application/home/about.phtml:4
+#: Application/view/application/home/contact.phtml:4
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
+"cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
+"non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+msgstr ""
+
+#: Application/view/application/home/contact.phtml:3
+msgid "Nous contacter"
+msgstr ""
+
+#: Application/view/application/home/index.phtml:3
+msgid "Bienvenu sur Agora pétitions!"
+msgstr ""
+
+#: Application/view/application/home/index.phtml:4
+msgid ""
+"Ce site propose des pétitions de haute qualité la ou tous les autres "
+"proposent des pétitions en quantité."
+msgstr ""
+
+#: Application/view/application/home/index.phtml:5
+msgid ""
+"Tous les deux mois, une nouvelle pétition sur le sujet de votre choix est "
+"publiée. Grâce à l'expertise d'avocats, la qualité et la faisabilité de nos "
+"pétitions sont assurées."
+msgstr ""
+
+#: Application/view/application/home/index.phtml:13
+msgid "Dernière pétition publiée"
+msgstr ""
+
+#: Application/view/application/home/index.phtml:40
+#: Petition/view/petition/petitions/petitions.phtml:3
+msgid "Liste des dernière pétitions"
+msgstr ""
+
+#: Application/view/error/404.phtml:5
 msgid "Erreur 404 : Page introuvable"
-msgstr "Error 404 : File not found"
-
-#: Application/view/error/404.phtml:14
-msgid "The requested controller was unable to dispatch the request."
 msgstr ""
 
-#: Application/view/error/404.phtml:17
+#: Application/view/error/404.phtml:15
+msgid "Le controlleur demandé n'a pas pu traité la requête."
+msgstr ""
+
+#: Application/view/error/404.phtml:18
 msgid ""
-"The requested controller could not be mapped to an existing controller class."
+"Le controlleur demandé n'a pas pu être associé à une classe de controlleur "
+"existant."
 msgstr ""
 
-#: Application/view/error/404.phtml:20
-msgid "The requested controller was not dispatchable."
+#: Application/view/error/404.phtml:21
+msgid "Le controlleur demandé n'est pas traitable."
 msgstr ""
 
-#: Application/view/error/404.phtml:23
-msgid "The requested URL could not be matched by routing."
+#: Application/view/error/404.phtml:24
+msgid "L'URL demandée n'a pas pu être associée à une route."
 msgstr ""
 
-#: Application/view/error/404.phtml:26
-msgid "We cannot determine at this time why a 404 was generated."
+#: Application/view/error/404.phtml:27
+msgid "Nous n'avons pas pu déterminer pour une erreur 404 est survenue."
 msgstr ""
 
-#: Application/view/error/404.phtml:50
+#: Application/view/error/404.phtml:44
+msgid "Controlleur:"
+msgstr ""
+
+#: Application/view/error/404.phtml:51
 #, php-format
-msgid "resolves to %s"
+msgid "résolu en %s"
 msgstr ""
 
-#: Application/view/error/404.phtml:108 Application/view/error/index.phtml:54
-msgid ""
-"<li>There may be more exceptions, but we have no enough memory to proccess "
-"it.</li>"
+#: Application/view/error/404.phtml:63 Application/view/error/index.phtml:9
+msgid "Informations additionnelles:"
 msgstr ""
 
-#: Application/view/error/404.phtml:118 Application/view/error/index.phtml:64
-msgid "No Exception available"
+#: Application/view/error/404.phtml:66 Application/view/error/404.phtml:91
+#: Application/view/error/index.phtml:12 Application/view/error/index.phtml:37
+msgid "Fichier:"
 msgstr ""
 
-#: Application/view/error/index.phtml:1
-msgid "An error occurred"
-msgstr ""
-
-#: Application/view/error/index.phtml:8
-msgid "Additional information:"
-msgstr ""
-
-#: Application/view/error/index.phtml:11 Application/view/error/index.phtml:36
-msgid "File:"
-msgstr ""
-
-#: Application/view/error/index.phtml:15 Application/view/error/index.phtml:40
+#: Application/view/error/404.phtml:70 Application/view/error/404.phtml:95
+#: Application/view/error/index.phtml:16 Application/view/error/index.phtml:41
 msgid "Message:"
 msgstr ""
 
-#: Application/view/error/index.phtml:19 Application/view/error/index.phtml:44
+#: Application/view/error/404.phtml:74 Application/view/error/404.phtml:99
+#: Application/view/error/index.phtml:20 Application/view/error/index.phtml:45
 msgid "Stack trace:"
 msgstr ""
 
-#: Application/view/error/index.phtml:30
-msgid "Previous exceptions:"
+#: Application/view/error/404.phtml:85 Application/view/error/index.phtml:31
+msgid "Exceptions précédentes:"
+msgstr ""
+
+#: Application/view/error/404.phtml:109 Application/view/error/index.phtml:55
+msgid ""
+"<li>Il se peut qu'il y ai plus d'exceptions, mais la mémoire du processus "
+"est limitée.</li>"
+msgstr ""
+
+#: Application/view/error/404.phtml:119 Application/view/error/index.phtml:65
+msgid "Aucune exception disponible."
+msgstr ""
+
+#: Application/view/error/index.phtml:2
+msgid "Une erreur est survenue"
 msgstr ""
 
 #: Application/view/layout/layout.phtml:7
 msgid "Agora Pétitions"
-msgstr "Agora Petitions"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:51
 msgid "Rendre le pouvoir au peuple"
-msgstr "Give the power back to the people"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:56
 #: Application/view/layout/layout.phtml:61
 msgid "Menu"
-msgstr "Menu"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:65
 msgid "Accueil"
-msgstr "Home"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:66
 msgid "Vote"
-msgstr "Vote"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:67
 msgid "Pétitions"
-msgstr "Petitions"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:68
 msgid "Contact"
-msgstr "Contact"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:69
 msgid "À propos"
-msgstr "About us"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:91
 msgid "Tous droits réservés"
-msgstr "All rights reserved"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:92
 msgid "Agora Pétition &copy; 2016"
-msgstr "Agora Petition &copy; 2016"
+msgstr ""
 
 #: Application/view/layout/layout.phtml:94
 msgid ""
 "Ce site est optimisé pour <a href=\"http://www.mozilla.org/firefox\">Mozilla "
 "Firefox</a> et <a href=\"http://www.google.com/chrome\">Google Chrome</a>"
 msgstr ""
-"This website is optimized for <a href=\"http://www.mozilla.org/firefox"
-"\">Mozilla Firefox</a> and <a href=\"http://www.google.com/chrome\">Google "
-"Chrome</a>"
+
+#: Petition/view/petition/petition/form.phtml:4
+#, php-format
+msgid "Signer la pétition \"%s\""
+msgstr ""
+
+#: Petition/view/petition/petition/form.phtml:19
+msgid "Identité"
+msgstr ""
+
+#: Petition/view/petition/petition/form.phtml:36
+msgid "Adresse"
+msgstr ""
+
+#: Petition/view/petition/petition/form.phtml:61
+msgid "Valider"
+msgstr ""
+
+#: Petition/view/petition/petition/form.phtml:74
+msgid "Newsletter"
+msgstr ""
+
+#: Petition/view/petition/petition/form.phtml:83
+msgid "Champs obligatoires"
+msgstr ""
+
+#: Petition/view/petition/petition/formErrors.phtml:6
+msgid "Erreurs"
+msgstr ""
+
+#: Petition/view/petition/petition/index.phtml:11
+msgid "Signez les pétitions qui vous intérèssent."
+msgstr ""
+
+#: Petition/view/petition/petition/index.phtml:12
+msgid "Cette pétition vous intéresse? Signez là des maintenant!"
+msgstr ""
+
+#: Petition/view/petition/petition/index.phtml:13
+#: Petition/view/petition/petitions/index.phtml:6
+msgid ""
+"Dans le cas ou une pétition a atteint les 500 000 signatures papiers, vous "
+"ne pourrez plus la signer. En revanche vous pouvez toujours vous inscrire à "
+"la newsletter de celle-ci afin de rester informé de son évolution."
+msgstr ""
+
+#: Petition/view/petition/petitions/index.phtml:3
+msgid "Consultez les pétitions publiées."
+msgstr ""
+
+#: Petition/view/petition/petitions/index.phtml:4
+msgid ""
+"Ici, vous trouverez toutes les pétitions que nous avons écrites depuis notre "
+"création."
+msgstr ""
+
+#: Petition/view/petition/petitions/index.phtml:5
+msgid ""
+"Vous pouvez toujours suivre et/ou signer une ancienne pétition. Votre "
+"signature peut faire la différence!"
+msgstr ""
+
+#: Petition/view/petition/petitions/petition.phtml:10
+#, php-format
+msgid "Le %s"
+msgstr ""
+
+#: Petition/view/petition/petitions/petition.phtml:20
+#, php-format
+msgid "%s e-signatures"
+msgstr ""
+
+#: Poll/view/poll/poll/index.phtml:3
+msgid "Votez pour la prochaine pétition."
+msgstr ""
+
+#: Poll/view/poll/poll/index.phtml:4
+msgid ""
+"Sur cette page, vous pouvez faire entendre votre voix! Choisissez quel sujet "
+"devrait aborder la prochaine pétition."
+msgstr ""
+
+#: Poll/view/poll/poll/index.phtml:5
+msgid ""
+"Si aucun de ces sujets ne vous inspire, vous pouvez toujours nous en "
+"soumettre de nouveaux. Après étude du sujet et de sa faisabilité, nous "
+"l'ajouterons au système de vote."
+msgstr ""
+
+#: Poll/view/poll/poll/poll.phtml:6
+#, php-format
+msgid "Fin du vote le %s"
+msgstr ""
+
+#: Poll/view/poll/poll/pollAnswer.phtml:6
+#, php-format
+msgid "Ajouté le %s"
+msgstr ""
+
+#: Poll/view/poll/poll/pollAnswer.phtml:7
+#, php-format
+msgid "Proposé par %s"
+msgstr ""
+
+#: Poll/view/poll/poll/pollAnswer.phtml:13
+#, php-format
+msgid "%s votes"
+msgstr ""
+
+#: Poll/view/poll/vote/vote.phtml:6
+msgid "Redirection"
+msgstr ""

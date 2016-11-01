@@ -7,13 +7,15 @@
 
 namespace Petition\Model;
 
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
 use Zend\Validator;
 
-class PetitionMailingList
+class PetitionMailingList extends I18nModel
 {
     public $id;
     public $pid;
@@ -23,6 +25,12 @@ class PetitionMailingList
     public $enabled;
 
     protected $inputFilter;
+
+    public function __construct(
+        TranslatorInterface $translator)
+    {
+        parent::__construct($translator);
+    }
 
     public function exchangeArray($data)
     {
@@ -36,7 +44,7 @@ class PetitionMailingList
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception($this->tr("Non implémentée"));
     }
 
     public function getInputFilter()
@@ -52,6 +60,7 @@ class PetitionMailingList
                 ),
             ));
 
+            $errorMessage = $this->tr('Votre adresse e-mail n\'est pas valide');
             $inputFilter->add(array(
                 'name'     => 'email',
                 'filters'  => array(
@@ -64,15 +73,15 @@ class PetitionMailingList
                         'options' => array(
                             'useDomainCheck' => true,
                             'messages' => array(
-                                Validator\EmailAddress::INVALID            => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::INVALID_FORMAT     => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::INVALID_HOSTNAME   => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::INVALID_MX_RECORD  => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::INVALID_SEGMENT    => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::DOT_ATOM           => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::QUOTED_STRING      => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::INVALID_LOCAL_PART => 'Votre adresse e-mail n\'est pas valide',
-                                Validator\EmailAddress::LENGTH_EXCEEDED    => 'Votre adresse e-mail n\'est pas valide',
+                                Validator\EmailAddress::INVALID            => $errorMessage,
+                                Validator\EmailAddress::INVALID_FORMAT     => $errorMessage,
+                                Validator\EmailAddress::INVALID_HOSTNAME   => $errorMessage,
+                                Validator\EmailAddress::INVALID_MX_RECORD  => $errorMessage,
+                                Validator\EmailAddress::INVALID_SEGMENT    => $errorMessage,
+                                Validator\EmailAddress::DOT_ATOM           => $errorMessage,
+                                Validator\EmailAddress::QUOTED_STRING      => $errorMessage,
+                                Validator\EmailAddress::INVALID_LOCAL_PART => $errorMessage,
+                                Validator\EmailAddress::LENGTH_EXCEEDED    => $errorMessage,
 
                                 Validator\Hostname::CANNOT_DECODE_PUNYCODE  => null,
                                 Validator\Hostname::INVALID                 => null,

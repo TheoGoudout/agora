@@ -7,18 +7,24 @@
 
 namespace Poll\Model;
 
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 
-class PollAnswerTable
+class PollAnswerTable extends I18nModel
 {
     protected $pollAnswerTableGateway;
     protected $pollVoteTable;
 
     public function __construct(
-        TableGateway  $pollAnswerTableGateway,
-        PollVoteTable $pollVoteTable)
+        TranslatorInterface $translator,
+        TableGateway        $pollAnswerTableGateway,
+        PollVoteTable       $pollVoteTable)
     {
+        parent::__construct($translator);
+
         $this->pollAnswerTableGateway = $pollAnswerTableGateway;
         $this->pollVoteTable          = $pollVoteTable;
     }

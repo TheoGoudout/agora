@@ -7,16 +7,23 @@
 
 namespace Petition\Controller;
 
-use Petition\Model\PetitionTable;
-use Zend\Mvc\Controller\AbstractActionController;
+use I18n\Controller\AbstractI18nActionController;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\View\Model\ViewModel;
 
-class PetitionsController extends AbstractActionController
+use Petition\Model\PetitionTable;
+
+class PetitionsController extends AbstractI18nActionController
 {
     protected $petitionTable;
 
-    public function __construct(PetitionTable $table)
+    public function __construct(
+        TranslatorInterface $translator,
+        PetitionTable       $table)
     {
+        parent::__construct($translator);
+
         $this->petitionTable = $table;
     }
 

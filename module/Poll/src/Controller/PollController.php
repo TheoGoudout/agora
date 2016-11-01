@@ -7,16 +7,23 @@
 
 namespace Poll\Controller;
 
+use I18n\Controller\AbstractI18nActionController;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Poll\Model\PollTable;
-use Zend\Mvc\Controller\AbstractActionController;
+
 use Zend\View\Model\ViewModel;
 
-class PollController extends AbstractActionController
+class PollController extends AbstractI18nActionController
 {
     protected $pollTable;
 
-    public function __construct(PollTable $table)
+    public function __construct(
+        TranslatorInterface $translator,
+        PollTable           $table)
     {
+        parent::__construct($translator);
+
         $this->pollTable = $table;
     }
 
@@ -26,7 +33,7 @@ class PollController extends AbstractActionController
         $poll = $this->pollTable->getPolls(array('id' => $pid, 'answers' => true));
 
         if (count($poll) !== 1) {
-            throw new \Exception("Could not find latest Poll");
+            throw new \Exception($this->tr("Impossible de trouver le vote à l'ID $pid"));
         } else {
             $poll = $poll[0];
         }

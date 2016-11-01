@@ -27,6 +27,7 @@
     },
     "autoload": {
         "psr-4": {
+            "I18n\\": "module/I18n/src",
             "Application\\": "module/Application/src/",
             "Poll\\": "module/Poll/src/",
             "Petition\\": "module/Petition/src/"

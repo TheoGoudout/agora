@@ -7,15 +7,17 @@
 
 namespace Petition\Form;
 
-use Zend\Form\Form;
+use I18n\Form\I18nForm;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\Form\Element;
 
-class PetitionMailingListForm extends Form
+class PetitionMailingListForm extends I18nForm
 {
-    public function __construct($name = null)
+    public function __construct(
+        TranslatorInterface $translator)
     {
-        // we want to ignore the name passed
-        parent::__construct('PetitionMailingList');
+        parent::__construct($translator, 'PetitionMailingList');
 
         // Petition ID
         $this->add(array(
@@ -25,7 +27,7 @@ class PetitionMailingListForm extends Form
 
         // E-mail
         $email = new Element\Email('email');
-        $email->setLabel('Souhaitez-vous vous inscrire à la newsletter de cette pétition? Vous ne recevrez que des informations sur cette pétition et rien d\'autre! Nous avons une politique très stricte vis-à-vis du spam!');
+        $email->setLabel($this->tr('Souhaitez-vous vous inscrire à la newsletter de cette pétition? Vous ne recevrez que des informations sur cette pétition et rien d\'autre! Nous avons une politique très stricte vis-à-vis du spam!'));
         $this->add($email);
 
         // Submit button

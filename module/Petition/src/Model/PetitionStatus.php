@@ -7,13 +7,22 @@
 
 namespace Petition\Model;
 
-class PetitionStatus
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
+class PetitionStatus extends I18nModel
 {
     public $id;
     public $pid;
     public $date;
     public $content;
     public $comment;
+
+    public function __construct(
+        TranslatorInterface $translator)
+    {
+        parent::__construct($translator);
+    }
 
     public function exchangeArray($data)
     {

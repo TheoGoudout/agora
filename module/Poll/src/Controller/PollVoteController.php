@@ -7,16 +7,23 @@
 
 namespace Poll\Controller;
 
+use I18n\Controller\AbstractI18nActionController;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Poll\Model\PollVoteTable;
-use Zend\Mvc\Controller\AbstractActionController;
+
 use Zend\View\Model\ViewModel;
 
-class PollVoteController extends AbstractActionController
+class PollVoteController extends AbstractI18nActionController
 {
     protected $pollVoteTable;
 
-    public function __construct(PollVoteTable $table)
+    public function __construct(
+        TranslatorInterface $Translator,
+        PollVoteTable       $table)
     {
+        parent::__construct($translator);
+
         $this->pollVoteTable = $table;
     }
 

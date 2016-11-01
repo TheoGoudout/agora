@@ -13,15 +13,21 @@ use Petition\Model\PetitionTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class HomeController extends AbstractActionController
+use I18n\Controller\AbstractI18nActionController;
+use Zend\I18n\Translator\TranslatorInterface;
+
+class HomeController extends AbstractI18nActionController
 {
     protected $pollTable;
     protected $petitionTable;
 
     public function __construct(
-        PollTable     $pollTable,
-        PetitionTable $petitionTable)
+        TranslatorInterface $translator,
+        PollTable           $pollTable,
+        PetitionTable       $petitionTable)
     {
+        parent::__construct($translator);
+
         $this->pollTable     = $pollTable;
         $this->petitionTable = $petitionTable;
     }
@@ -33,13 +39,13 @@ class HomeController extends AbstractActionController
         $oldPetitions   = $this->petitionTable->getPetitions(array('limit' => 5, 'offset' => 1));
 
         if (count($latestPetition) !== 1) {
-            throw new \Exception("Could not find latest Petition");
+            throw new \Exception($this->tr("Impossible de trouver la dernière pétition"));
         } else {
             $latestPetition = $latestPetition[0];
         }
 
         if (count($latestPoll) !== 1) {
-            throw new \Exception("Could not find latest Poll");
+            throw new \Exception($this->tr("Impossible de trouver le dernier vote"));
         } else {
             $latestPoll = $latestPoll[0];
         }

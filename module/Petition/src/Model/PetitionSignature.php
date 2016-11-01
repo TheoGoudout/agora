@@ -7,13 +7,16 @@
 
 namespace Petition\Model;
 
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
 use Zend\Validator;
 
-class PetitionSignature implements InputFilterAwareInterface
+class PetitionSignature extends I18nModel
 {
     public $id;
     public $pid;
@@ -29,6 +32,12 @@ class PetitionSignature implements InputFilterAwareInterface
     public $city;
 
     protected $inputFilter;
+
+    public function __construct(
+        TranslatorInterface $translator)
+    {
+        parent::__construct($translator);
+    }
 
     public function exchangeArray($data)
     {
@@ -48,7 +57,7 @@ class PetitionSignature implements InputFilterAwareInterface
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception($this->tr("Non implémentée"));
     }
 
     public function getInputFilter()
@@ -75,7 +84,7 @@ class PetitionSignature implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre titre',
+                                Validator\NotEmpty::IS_EMPTY => $this->tr('Vous devez renseigner votre titre'),
                             ),
                         ),
                     ),
@@ -93,7 +102,7 @@ class PetitionSignature implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre prénom',
+                                Validator\NotEmpty::IS_EMPTY => $this->tr('Vous devez renseigner votre prénom'),
                             ),
                         ),
                     ),
@@ -118,7 +127,7 @@ class PetitionSignature implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre nom',
+                                Validator\NotEmpty::IS_EMPTY => $this->tr('Vous devez renseigner votre nom'),
                             ),
                         ),
                     ),
@@ -143,7 +152,7 @@ class PetitionSignature implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre adresse',
+                                Validator\NotEmpty::IS_EMPTY => $this->tr('Vous devez renseigner votre adresse'),
                             ),
                         ),
                     ),
@@ -203,7 +212,7 @@ class PetitionSignature implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre code postal',
+                                Validator\NotEmpty::IS_EMPTY => $this->tr('Vous devez renseigner votre code postal'),
                             ),
                         ),
                     ),
@@ -227,7 +236,7 @@ class PetitionSignature implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                Validator\NotEmpty::IS_EMPTY => 'Vous devez renseigner votre ville',
+                                Validator\NotEmpty::IS_EMPTY => $this->tr('Vous devez renseigner votre ville'),
                             ),
                         ),
                     ),
@@ -250,7 +259,7 @@ class PetitionSignature implements InputFilterAwareInterface
                         'options' => array(
                             'token' => 'agreed',
                             'messages' => array(
-                                Validator\Identical::NOT_SAME => 'Vous devez accepter les termes de la signatures éléctronique'
+                                Validator\Identical::NOT_SAME => $this->tr('Vous devez accepter les termes de la signatures éléctronique'),
                             ),
                         ),
                     ),

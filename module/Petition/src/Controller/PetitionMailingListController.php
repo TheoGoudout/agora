@@ -7,7 +7,9 @@
 
 namespace Petition\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use I18n\Controller\AbstractI18nActionController;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\View\Model\ViewModel;
 // use Zend\Session\Container;
 
@@ -15,22 +17,26 @@ use Petition\Model\PetitionMailingList;
 use Petition\Model\PetitionMailingListTable;
 use Petition\Form\PetitionMailingListForm;
 
-class PetitionMailingListController extends AbstractActionController
+class PetitionMailingListController extends AbstractI18nActionController
 {
     protected $petitionMailingListTable;
 
-    public function __construct(PetitionMailingListTable $table)
+    public function __construct(
+        TranslatorInterface      $translator,
+        PetitionMailingListTable $table)
     {
+        parent::__construct($translator);
+
         $this->petitionMailingListTable = $table;
     }
 
     public function addAction ()
     {
-        $form = new PetitionMailingListForm();
+        $form = new PetitionMailingListForm($this->translator);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $mailingList = new PetitionMailingList();
+            $mailingList = new PetitionMailingList($this->translator);
             $form->setInputFilter($mailingList->getInputFilter());
             $form->setData($request->getPost());
 

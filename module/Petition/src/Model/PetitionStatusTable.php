@@ -7,17 +7,24 @@
 
 namespace Petition\Model;
 
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Update;
 
-class PetitionStatusTable
+class PetitionStatusTable extends I18nModel
 {
     protected $petitionStatusTableGateway;
 
-    public function __construct(TableGateway $petitionStatusTableGateway)
+    public function __construct(
+        TranslatorInterface $translator,
+        TableGateway        $petitionStatusTableGateway)
     {
+        parent::__construct($translator);
+
         $this->petitionStatusTableGateway = $petitionStatusTableGateway;
     }
 

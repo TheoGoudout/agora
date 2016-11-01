@@ -20,6 +20,7 @@ return [
     'Zend\Db',
     'Zend\Router',
     'Zend\Validator',
+    'I18n',
     'Application',
     'Poll',
     'Petition',

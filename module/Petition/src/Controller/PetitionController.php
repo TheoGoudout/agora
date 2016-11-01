@@ -7,7 +7,9 @@
 
 namespace Petition\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use I18n\Controller\AbstractI18nActionController;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 
@@ -15,12 +17,16 @@ use Petition\Model\PetitionTable;
 use Petition\Form\PetitionSignatureForm;
 use Petition\Form\PetitionMailingListForm;
 
-class PetitionController extends AbstractActionController
+class PetitionController extends AbstractI18nActionController
 {
     protected $petitionTable;
 
-    public function __construct(PetitionTable $table)
+    public function __construct(
+        TranslatorInterface $translator,
+        PetitionTable       $table)
     {
+        parent::__construct($translator);
+
         $this->petitionTable = $table;
     }
 
@@ -31,7 +37,7 @@ class PetitionController extends AbstractActionController
         $petition = $this->petitionTable->getPetitions(array('id' => $pid));
 
         if (count($petition) !== 1) {
-            throw new \Exception("Could not find Petition with ID : $pid");
+            throw new \Exception($this->tr("Impossible de trouver une Pétition à l'ID : $pid"));
         } else {
             $petition = $petition[0];
         }
@@ -41,8 +47,8 @@ class PetitionController extends AbstractActionController
         $signatureForm = $session->offsetGet('signatureForm');
         $session->offsetUnset('signatureForm');
         if (!$signatureForm) {
-            $signatureForm = new PetitionSignatureForm();
-            $signatureForm->get('submit')->setValue('Je signe!');
+            $signatureForm = new PetitionSignatureForm($this->translator);
+            $signatureForm->get('submit')->setValue($this->tr('Je signe!'));
             $signatureForm->get('pid')->setValue($pid);
         }
 
@@ -51,8 +57,8 @@ class PetitionController extends AbstractActionController
         $mailingListForm = $session->offsetGet('mailingListForm');
         $session->offsetUnset('mailingListForm');
         if (!$mailingListForm) {
-            $mailingListForm = new PetitionMailingListForm();
-            $mailingListForm->get('submit')->setValue('Je m\'inscris à la mailing list!');
+            $mailingListForm = new PetitionMailingListForm($this->translator);
+            $mailingListForm->get('submit')->setValue($this->tr('Je m\'inscris à la mailing list!'));
             $mailingListForm->get('pid')->setValue($pid);
         }
 

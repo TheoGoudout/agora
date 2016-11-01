@@ -7,7 +7,9 @@
 
 namespace Petition\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use I18n\Controller\AbstractI18nActionController;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 
@@ -15,22 +17,26 @@ use Petition\Model\PetitionSignature;
 use Petition\Model\PetitionSignatureTable;
 use Petition\Form\PetitionSignatureForm;
 
-class PetitionSignatureController extends AbstractActionController
+class PetitionSignatureController extends AbstractI18nActionController
 {
     protected $petitionSignatureTable;
 
-    public function __construct(PetitionSignatureTable $table)
+    public function __construct(
+        TranslatorInterface    $translator,
+        PetitionSignatureTable $table)
     {
+        parent::__construct($translator);
+
         $this->petitionSignatureTable = $table;
     }
 
     public function addAction ()
     {
-        $form = new PetitionSignatureForm();
+        $form = new PetitionSignatureForm($this->translator);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $signature = new PetitionSignature();
+            $signature = new PetitionSignature($this->translator);
             $form->setInputFilter($signature->getInputFilter());
             $form->setData($request->getPost());
 

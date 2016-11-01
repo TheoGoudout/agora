@@ -7,7 +7,10 @@
 
 namespace Petition\Model;
 
-class Petition
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
+class Petition extends I18nModel
 {
     public $id;
     public $creationDate;
@@ -27,6 +30,11 @@ class Petition
     public $mailingListCount;
     public $mailingLists;
 
+    public function __construct(
+        TranslatorInterface $translator)
+    {
+        parent::__construct($translator);
+    }
 
     public function exchangeArray($data)
     {

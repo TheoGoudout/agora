@@ -7,6 +7,9 @@
 
 namespace Petition\Model;
 
+use I18n\Model\I18nModel;
+use Zend\I18n\Translator\TranslatorInterface;
+
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Insert;
@@ -14,12 +17,16 @@ use Zend\Db\Sql\Update;
 
 use Petition\Model\PetitionSignature;
 
-class PetitionSignatureTable
+class PetitionSignatureTable extends I18nModel
 {
     protected $petitionSignatureTableGateway;
 
-    public function __construct(TableGateway $petitionSignatureTableGateway)
+    public function __construct(
+        TranslatorInterface $translator,
+        TableGateway        $petitionSignatureTableGateway)
     {
+        parent::__construct($translator);
+
         $this->petitionSignatureTableGateway = $petitionSignatureTableGateway;
     }
 
@@ -113,12 +120,10 @@ class PetitionSignatureTable
         $id = (int) $signature->id;
         if ($id == 0) {
             $this->petitionSignatureTableGateway->insert($data);
+        } else if ($this->getPetitionSignatures(array('id' => $id))) {
+            $this->tableGateway->update($data, array('id' => $id));
         } else {
-            if ($this->getPetitionSignatures(array('id' => $id))) {
-                $this->tableGateway->update($data, array('id' => $id));
-            } else {
-                throw new \Exception('PetitionSignature id does not exist');
-            }
+            throw new \Exception($this->tr('PetitionSignature id $id n\'existe pas'));
         }
     }
 
