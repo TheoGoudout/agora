@@ -38,10 +38,8 @@ class PetitionMailingListController extends AbstractActionController
                 $mailingList->exchangeArray($form->getData());
                 $this->petitionMailingListTable->saveMailingList($mailingList);
             } else {
-                session_start();
-                $_SESSION['mailingListForm'] = $form;
-                // $session = new Container('form');
-                // $session->offsetSet('mailingListForm', $form);
+                $session = new Container('form');
+                $session->offsetSet('mailingListForm', $form);
             }
         }
 

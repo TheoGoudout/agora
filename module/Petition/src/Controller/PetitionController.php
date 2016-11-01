@@ -37,12 +37,9 @@ class PetitionController extends AbstractActionController
         }
 
         // Get signature form
-        session_start();
-        $signatureForm = $_SESSION['signatureForm'];
-        unset($_SESSION['signatureForm']);
-        // $session = new Container('form');
-        // $lastForm = $session->offsetGet('signatureForm');
-        // $session->offsetUnset('lastForm');
+        $session = new Container('form');
+        $signatureForm = $session->offsetGet('signatureForm');
+        $session->offsetUnset('signatureForm');
         if (!$signatureForm) {
             $signatureForm = new PetitionSignatureForm();
             $signatureForm->get('submit')->setValue('Je signe!');
@@ -50,12 +47,9 @@ class PetitionController extends AbstractActionController
         }
 
         // Get signature form
-        session_start();
-        $mailingListForm = $_SESSION['mailingListForm'];
-        unset($_SESSION['mailingListForm']);
-        // $session = new Container('form');
-        // $lastForm = $session->offsetGet('mailingListForm');
-        // $session->offsetUnset('lastForm');
+        $session = new Container('form');
+        $mailingListForm = $session->offsetGet('mailingListForm');
+        $session->offsetUnset('mailingListForm');
         if (!$mailingListForm) {
             $mailingListForm = new PetitionMailingListForm();
             $mailingListForm->get('submit')->setValue('Je m\'inscris à la mailing list!');

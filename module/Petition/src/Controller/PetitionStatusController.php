@@ -10,6 +10,7 @@ namespace Petition\Controller;
 use Petition\Model\PetitionTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\Container;
 
 class PetitionStatusController extends AbstractActionController
 {
