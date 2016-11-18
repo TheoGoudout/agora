@@ -5,13 +5,14 @@
 --  
 
 CREATE TABLE PollVote (
-  id int NOT NULL ,
-  pid int NOT NULL ,
-  aid int NOT NULL ,
-  creationDate DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-  lastModified DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  id int NOT NULL,
+  pid int NOT NULL,
+  aid int NOT NULL,
+  lastModified DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   content varchar(200),
-  ipAddress varchar(45) NOT NULL 
+  ipAddress varchar(45) NOT NULL,
+  validationValue int(11) NOT NULL,
+  validationStatus tinyint(1) NOT NULL DEFAULT 0
 );
 
 CREATE INDEX PollVote_id_index  ON PollVote(id);

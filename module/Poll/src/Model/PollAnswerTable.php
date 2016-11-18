@@ -47,7 +47,7 @@ class PollAnswerTable extends I18nModel
         if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
-                ->where->lessThanOrEqualTo('a.creationDate', 'CURRENT_TIMESTAMP');
+                ->where->lessThanOrEqualTo('a.lastModified', 'CURRENT_TIMESTAMP');
         }
 
         // Check limit

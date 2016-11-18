@@ -5,10 +5,10 @@
 --  
 
 CREATE TABLE PetitionStatus (
-  id int NOT NULL ,
-  pid int NOT NULL ,
-  date DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-  content varchar(50) NOT NULL ,
+  id int NOT NULL,
+  pid int NOT NULL,
+  date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  content varchar(50) NOT NULL,
   comment varchar(200)
 );
 

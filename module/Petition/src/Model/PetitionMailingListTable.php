@@ -36,7 +36,7 @@ class PetitionMailingListTable extends I18nModel
             ->columns(array('*'));
 
         // Always order by date
-        $select->order('m.creationDate DESC');
+        $select->order('m.lastModified DESC');
 
         // Check id
         $id = isset($params['id']) ? (int)$params['id'] : 0;
@@ -48,7 +48,7 @@ class PetitionMailingListTable extends I18nModel
         if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
-                ->where->lessThanOrEqualTo('m.creationDate', 'CURRENT_TIMESTAMP');
+                ->where->lessThanOrEqualTo('m.lastModified', 'CURRENT_TIMESTAMP');
         }
 
         // Check petition id

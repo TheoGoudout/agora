@@ -11,7 +11,6 @@ class PollAnswer
 {
     public $id;
     public $pid;
-    public $creationDate;
     public $lastModified;
     public $author;
     public $content;
@@ -23,7 +22,6 @@ class PollAnswer
     {
         $this->id           = empty($data['id'])           ?  null : $data['id'];
         $this->pid          = empty($data['pid'])          ?  null : $data['pid'];
-        $this->creationDate = empty($data['creationDate']) ?  null : $data['creationDate'];
         $this->lastModified = empty($data['lastModified']) ?  null : $data['lastModified'];
         $this->author       = empty($data['author'])       ?  null : $data['author'];
         $this->content      = empty($data['content'])      ?  null : $data['content'];

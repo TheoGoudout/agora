@@ -38,7 +38,7 @@ class PetitionSignatureTable extends I18nModel
             ->columns(array('*'));
 
         // Always order by date
-        $select->order('s.creationDate DESC');
+        $select->order('s.lastModified DESC');
 
         // Check id
         $id = isset($params['id']) ? (int)$params['id'] : 0;
@@ -50,7 +50,7 @@ class PetitionSignatureTable extends I18nModel
         if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
-                ->where->lessThanOrEqualTo('s.creationDate', 'CURRENT_TIMESTAMP');
+                ->where->lessThanOrEqualTo('s.lastModified', 'CURRENT_TIMESTAMP');
         }
 
         // Check petition id
@@ -93,7 +93,7 @@ class PetitionSignatureTable extends I18nModel
             ->from(array('s' => 'PetitionSignature'))
             ->columns(array('*'))
             ->where(array('pid' => $pid))
-            ->order(array('creationDate DESC'));
+            ->order(array('lastModified DESC'));
 
         $results = array();
         foreach ($this->petitionSignatureTableGateway->selectWith($select) as $result) {

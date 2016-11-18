@@ -36,8 +36,8 @@ class PetitionTable extends I18nModel
 
     protected function getPetitionsFromSelect(array $params, Select $select)
     {
-        // Always order by creationDate
-        $select->order('p.creationDate DESC');
+        // Always order by lastModified
+        $select->order('p.lastModified DESC');
 
         // Check id
         $id = isset($params['id']) ? (int)$params['id'] : 0;
@@ -49,7 +49,7 @@ class PetitionTable extends I18nModel
         if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
-                ->where->lessThanOrEqualTo('p.creationDate', 'CURRENT_TIMESTAMP');
+                ->where->lessThanOrEqualTo('p.lastModified', 'CURRENT_TIMESTAMP');
         }
 
         // Check limit

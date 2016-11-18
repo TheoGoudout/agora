@@ -20,7 +20,6 @@ class PetitionSignature extends I18nModel
 {
     public $id;
     public $pid;
-    public $creationDate;
     public $lastModified;
     public $gender;
     public $firstName;
@@ -43,7 +42,6 @@ class PetitionSignature extends I18nModel
     {
         $this->id           = isset($data['id'])           ? $data['id']           : null;
         $this->pid          = isset($data['pid'])          ? $data['pid']          : null;
-        $this->creationDate = isset($data['creationDate']) ? $data['creationDate'] : null;
         $this->lastModified = isset($data['lastModified']) ? $data['lastModified'] : null;
         $this->gender       = isset($data['gender'])       ? $data['gender']       : null;
         $this->firstName    = isset($data['firstName'])    ? $data['firstName']    : null;

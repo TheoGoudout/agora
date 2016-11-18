@@ -3,7 +3,7 @@
         <header>
             <h2><?= $answer->content; ?></h2>
             <ul class="inlined">
-                <li><?= sprintf($this->translate('Ajouté le %s'), $answer->creationDate); ?></li>
+                <li><?= sprintf($this->translate('Ajouté le %s'), $answer->lastModified); ?></li>
                 <li><?= sprintf($this->translate('Proposé par %s'), $answer->author); ?></li>
             </ul>
         </header>

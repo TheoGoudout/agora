@@ -5,11 +5,10 @@
 --  
 
 CREATE TABLE PollAnswer (
-  id int NOT NULL ,
-  pid int NOT NULL ,
-  creationDate DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-  lastModified DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  author varchar(50) NOT NULL ,
+  id int NOT NULL,
+  pid int NOT NULL,
+  lastModified DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  author varchar(50) NOT NULL,
   content varchar(200) NOT NULL 
 );
 

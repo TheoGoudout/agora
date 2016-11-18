@@ -5,13 +5,12 @@
 --  
 
 CREATE TABLE Poll (
-  id int NOT NULL ,
-  creationDate DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-  lastModified DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  author varchar(50) NOT NULL ,
-  content varchar(200) NOT NULL ,
-  startDate DATETIME NOT NULL ,
-  endDate DATETIME NOT NULL 
+  id int NOT NULL,
+  lastModified DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  author varchar(50) NOT NULL,
+  content varchar(200) NOT NULL,
+  startDate DATETIME NOT NULL,
+  endDate DATETIME NOT NULL
 );
 
 CREATE INDEX Poll_id_index  ON Poll(id);

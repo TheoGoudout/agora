@@ -5,17 +5,16 @@
 --  
 
 CREATE TABLE PetitionSignature (
-  id int NOT NULL ,
-  pid int NOT NULL ,
-  creationDate DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-  lastModified DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  gender bool NOT NULL ,
-  firstName varchar(50) NOT NULL ,
-  lastName varchar(50) NOT NULL ,
-  address1 varchar(200) NOT NULL ,
+  id int NOT NULL,
+  pid int NOT NULL,
+  lastModified DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  gender tinyint(1) NOT NULL,
+  firstName varchar(50) NOT NULL,
+  lastName varchar(50) NOT NULL,
+  address1 varchar(200) NOT NULL,
   address2 varchar(200),
   address3 varchar(200),
-  zipCode varchar(10) NOT NULL ,
+  zipCode varchar(10) NOT NULL,
   city varchar(200) NOT NULL 
 );
 

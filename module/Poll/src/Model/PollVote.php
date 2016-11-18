@@ -12,7 +12,6 @@ class PollVote
     public $id;
     public $pid;
     public $aid;
-    public $creationDate;
     public $lastModified;
 
     public $ipAddress;
@@ -24,7 +23,6 @@ class PollVote
         $this->id           = empty($data['id'])           ?  null : $data['id'];
         $this->pid          = empty($data['pid'])          ?  null : $data['pid'];
         $this->aid          = empty($data['aid'])          ?  null : $data['aid'];
-        $this->creationDate = empty($data['creationDate']) ?  null : $data['creationDate'];
         $this->lastModified = empty($data['lastModified']) ?  null : $data['lastModified'];
 
         $this->ipAddress        = empty($data['ipAddress'])        ?  null : $data['ipAddress'];

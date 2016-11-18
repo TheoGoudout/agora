@@ -10,7 +10,6 @@ namespace Poll\Model;
 class Poll
 {
     public $id;
-    public $creationDate;
     public $lastModified;
     public $author;
     public $content;
@@ -26,7 +25,6 @@ class Poll
     public function exchangeArray($data)
     {
         $this->id           = empty($data['id'])           ?  null : $data['id'];
-        $this->creationDate = empty($data['creationDate']) ?  null : $data['creationDate'];
         $this->lastModified = empty($data['lastModified']) ?  null : $data['lastModified'];
         $this->author       = empty($data['author'])       ?  null : $data['author'];
         $this->content      = empty($data['content'])      ?  null : $data['content'];

@@ -13,7 +13,6 @@ use Zend\I18n\Translator\TranslatorInterface;
 class Petition extends I18nModel
 {
     public $id;
-    public $creationDate;
     public $lastModified;
     public $author;
     public $title;
@@ -39,7 +38,6 @@ class Petition extends I18nModel
     public function exchangeArray($data)
     {
         $this->id               = empty($data['id'])               ?  null : $data['id'];
-        $this->creationDate     = empty($data['creationDate'])     ?  null : $data['creationDate'];
         $this->lastModified     = empty($data['lastModified'])     ?  null : $data['lastModified'];
         $this->author           = empty($data['author'])           ?  null : $data['author'];
         $this->title            = empty($data['title'])            ?  null : $data['title'];

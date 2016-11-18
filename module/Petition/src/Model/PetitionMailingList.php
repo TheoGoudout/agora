@@ -19,7 +19,6 @@ class PetitionMailingList extends I18nModel
 {
     public $id;
     public $pid;
-    public $creationDate;
     public $lastModified;
     public $email;
     public $enabled;
@@ -36,7 +35,6 @@ class PetitionMailingList extends I18nModel
     {
         $this->id               = empty($data['id'])               ?  null : $data['id'];
         $this->pid              = empty($data['pid'])              ?  null : $data['pid'];
-        $this->creationDate     = empty($data['creationDate'])     ?  null : $data['creationDate'];
         $this->lastModified     = empty($data['lastModified'])     ?  null : $data['lastModified'];
         $this->email            = empty($data['email'])            ?  null : $data['email'];
         $this->enabled          = empty($data['enabled'])          ?  null : $data['enabled'];

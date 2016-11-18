@@ -35,8 +35,8 @@ class PollVoteTable extends I18nModel
             ->from(array('v' => 'PollVote'))
             ->columns(array('*'));
 
-        // Order by creationDate by default
-        $order = isset($params['order']) ? (string)$params['order'] : 'v.creationDate DESC';
+        // Order by lastModified by default
+        $order = isset($params['order']) ? (string)$params['order'] : 'v.lastModified DESC';
         if ($order) {
             $select->order($order);
         }
@@ -51,7 +51,7 @@ class PollVoteTable extends I18nModel
         if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
-                ->where->lessThanOrEqualTo('v.creationDate', 'CURRENT_TIMESTAMP');
+                ->where->lessThanOrEqualTo('v.lastModified', 'CURRENT_TIMESTAMP');
         }
 
         // Check limit
@@ -107,7 +107,7 @@ class PollVoteTable extends I18nModel
             ->from(array('v' => 'PollVote'))
             ->columns(array('*'))
             ->where(array('pid' => $pid, 'ipAddress' => $ipAddress))
-            ->order(array('creationDate DESC'));
+            ->order(array('lastModified DESC'));
 
         $result = $this->pollVoteTableGateway->selectWith($select)->current();
 
@@ -172,7 +172,7 @@ class PollVoteTable extends I18nModel
             ->from('PollVote')
             ->columns(array('*'))
             ->where(array('pid' => $pid, 'aid' => $aid, 'ipAddress' => $ipAddress))
-            ->order(array('creationDate DESC'));
+            ->order(array('lastModified DESC'));
 
         $result = $this->pollVoteTableGateway->selectWith($select)->current();
 

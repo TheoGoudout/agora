@@ -5,12 +5,11 @@
 --  
 
 CREATE TABLE PetitionMailingList (
-  id int NOT NULL ,
-  pid int NOT NULL ,
-  creationDate DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-  lastModified DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  email varchar(256) NOT NULL ,
-  enabled bool NOT NULL 
+  id int NOT NULL,
+  pid int NOT NULL,
+  lastModified DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  email varchar(256) NOT NULL,
+  enabled tinyint(1) NOT NULL
 );
 
 CREATE INDEX PetitionMailingList_id_index  ON PetitionMailingList(id);
