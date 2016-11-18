@@ -19,7 +19,7 @@ class PollVoteController extends AbstractI18nActionController
     protected $pollVoteTable;
 
     public function __construct(
-        TranslatorInterface $Translator,
+        TranslatorInterface $translator,
         PollVoteTable       $table)
     {
         parent::__construct($translator);
