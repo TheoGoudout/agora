@@ -20,11 +20,11 @@ class Module implements ConfigProviderInterface
     public function onBootstrap(MvcEvent $e)
     {
         $translator = $e->getApplication()->getServiceManager()->get('Zend\I18n\Translator\TranslatorInterface');
+        $translator->setLocale('fr_FR')->setFallbackLocale('fr_FR');
 
         $setTranslatorLocale = function($lang) use ($translator) {
             $translator
-              ->setLocale($lang)
-              ->setFallbackLocale('fr_FR');
+              ->setLocale($lang);
         };
 
         $getLocale = function ($event)
