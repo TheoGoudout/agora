@@ -118,19 +118,25 @@ class PollTable extends I18nModel
         foreach ($results as $result) {
             if (isset($params['answers']) && $params['answers']) {
                 // Retrieve answers
-                $answerParams = array_merge($params['answers'], array(
+                $answerParams = array(
                     'pid' => $result->id,
                     'votes' => $params['votes'],
-                ));
+                );
+                if (is_array($params['answers'])) {
+                    $answerParams = array_merge($answerParams, $params['answers']);
+                }
                 $result->answers = $this->pollAnswerTable->getPollAnswers($answerParams);
             }
 
             if (isset($params['votes']) && $params['votes']) {
                 // Retrieve votes
-                $voteParams = array_merge($params['votes'], array(
+                $voteParams = array(
                     'pid' => $result->id,
-                ));
-                $result->votes = $this->pollVoteTable->getPollVotes(array('id' => $result->id));
+                );
+                if (is_array($params['votes'])) {
+                    $voteParams = array_merge($voteParams, $params['votes']);
+                }
+                $result->votes = $this->pollVoteTable->getPollVotes($voteParams);
             }
         }
 
