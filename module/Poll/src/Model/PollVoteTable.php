@@ -51,7 +51,7 @@ class PollVoteTable extends I18nModel
         if (isset($params['id']) && $params['id'] == 'latest') {
             $select
                 ->limit(1)
-                ->where->lessThanOrEqualTo('v.lastModified', 'CURRENT_TIMESTAMP');
+                ->where->lessThanOrEqualTo('v.lastModified', new \Zend\Db\Sql\Expression('CURRENT_TIMESTAMP'));
         }
 
         // Check limit
