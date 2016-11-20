@@ -1,4 +1,6 @@
-<?php $this->headTitle($poll->content);?>
+<?php
+    $this->headTitle($poll->content);
+?>
 <header class="hiddable">
 	<h1><?= $this->translate('Votez pour la prochaine pétition.'); ?></h1>
 	<p><?= $this->translate('Sur cette page, vous pouvez faire entendre votre voix! Choisissez quel sujet devrait aborder la prochaine pétition.'); ?></p>
@@ -6,11 +8,21 @@
 </header>
 <section>
 <?php
-	echo $this->partial(
-		'poll/poll/poll.phtml',
-		array(
-			'poll' => $poll
-		)
-	);
+    if ($poll === null)
+    {
+?>
+    <article>
+        <header>
+            <h1><?= $this->translate('Aucun vote disponible'); ?></h1>
+        </header>
+        <p><?= $this->translate('Le vote que vous cherchez n\'existe pas.'); ?></p>
+    </article>
+<?php
+    } else {
+    	echo $this->partial(
+    		'poll/poll/poll.phtml',
+    		array('poll' => $poll)
+    	);
+    }
 ?>
 </section>

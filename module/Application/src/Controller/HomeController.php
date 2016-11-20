@@ -39,13 +39,13 @@ class HomeController extends AbstractI18nActionController
         $oldPetitions   = $this->petitionTable->getPetitions(array('limit' => 5, 'offset' => 1));
 
         if (count($latestPetition) !== 1) {
-            throw new \Exception($this->tr("Impossible de trouver la dernière pétition"));
+            $latestPetition = null;
         } else {
             $latestPetition = $latestPetition[0];
         }
 
         if (count($latestPoll) !== 1) {
-            throw new \Exception($this->tr("Impossible de trouver le dernier vote"));
+            $latestPoll = null;
         } else {
             $latestPoll = $latestPoll[0];
         }

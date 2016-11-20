@@ -1,0 +1,31 @@
+<div class="item">
+<?php
+    // Render petition header
+    echo $this->partial(
+        'petition/petition/header.phtml',
+        array(
+            'petition' => $petition,
+        )
+    );
+
+    // Display content if specified
+    if ($displayContent === true) {
+?>
+    <div class="bbcode">
+        <?= $petition->content; ?>
+    </div>
+<?php
+    }
+?>
+    <div class="tab">
+<?php
+    // Render petition status
+    echo $this->partial(
+        'petition/petition/status.phtml',
+        array(
+            'petition' => $petition,
+        )
+    );
+?>
+    </div>
+</div>

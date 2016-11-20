@@ -1,0 +1,12 @@
+<article>
+<?php
+    // Render petition as item
+    echo $this->partial(
+        'petition/petition/item.phtml',
+        array(
+            'petition' => $petition,
+            'displayContent' => true,
+        )
+    );
+?>
+</article>

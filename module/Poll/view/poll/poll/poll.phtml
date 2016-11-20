@@ -10,7 +10,7 @@
 <?php
     foreach ($poll->answers as $answer) {
         echo $this->partial(
-            'poll/poll/pollAnswer.phtml', 
+            'poll/poll/pollAnswer.phtml',
             array(
                 'answer'         => $answer,
                 'totalVoteCount' => $poll->voteCount

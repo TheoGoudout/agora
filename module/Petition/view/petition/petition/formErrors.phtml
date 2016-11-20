@@ -1,25 +1,25 @@
 <?php
-    $errors = array_merge($signatureForm->getMessages(), $mailingListForm->getMessages());
+    $errors = $form->getMessages();
     if ($errors) {
 ?>
 <fieldset>
     <legend><?= $this->translate('Erreurs'); ?></legend>
     <div class="tab">
-    <ul>
+        <ul>
 <?php
     foreach ($errors as $keyErrors) {
         foreach ($keyErrors as $message) {
             if ($message) {
 ?>
-        <li class="red"><?= $message ?></li>
+            <li class="red"><?= $message ?></li>
 <?php
             }
         }
     }
 ?>
-    </ul>
+        </ul>
     </div>
 </fieldset>
-<?php   
+<?php
     }
 ?>

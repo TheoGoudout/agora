@@ -37,7 +37,7 @@ class PetitionController extends AbstractI18nActionController
         $petition = $this->petitionTable->getPetitions(array('id' => $pid));
 
         if (count($petition) !== 1) {
-            throw new \Exception($this->tr("Impossible de trouver une Pétition à l'ID : $pid"));
+            $petition = null;
         } else {
             $petition = $petition[0];
         }

@@ -1,56 +1,36 @@
-<?php $this->headTitle('Accueil');?>
+<?php $this->headTitle("Accueil");?>
 <header class="hiddable">
-    <h1><?= $this->translate('Bienvenu sur Agora pétitions!'); ?></h1>
-    <p><?= $this->translate('Ce site propose des pétitions de haute qualité la ou tous les autres proposent des pétitions en quantité.'); ?></p>
-    <p><?= $this->translate('Tous les deux mois, une nouvelle pétition sur le sujet de votre choix est publiée. Grâce à l\'expertise d\'avocats, la qualité et la faisabilité de nos pétitions sont assurées.'); ?></p>
+    <h1><?= $this->translate("Bienvenu sur Agora pétitions!"); ?></h1>
+    <p><?= $this->translate("Ce site propose des pétitions de haute qualité la ou tous les autres proposent des pétitions en quantité."); ?></p>
+    <p><?= $this->translate("Tous les deux mois, une nouvelle pétition sur le sujet de votre choix est publiée. Grâce à l'expertise d'avocats, la qualité et la faisabilité de nos pétitions sont assurées."); ?></p>
 </header>
 <section>
 <?php
-    if ($latestPetition) {
-?>
-        <article>
-            <header>
-                <h1><?= $this->translate('Dernière pétition publiée'); ?></h1>
-            </header>
-<?php
-            echo $this->partial(
-                'petition/petitions/petition.phtml', 
-                array('petition' => $latestPetition)
-            );
-?>
-        </article>
-<?php
-    }
-?>
+    // Render latest petition article
+    echo $this->partial(
+        'petition/petitions/petitions.phtml',
+        array(
+            'title' => $this->translate("Dernière pétition publiée"),
+            'petition' => array($latestPetition),
+            'displayIfEmpty' => true,
+        )
+    );
 
-<?php
+    // Render latest vote article
     echo $this->partial(
         'poll/poll/poll.phtml',
         array(
-            'poll' => $latestPoll
+            'poll' => $latestPoll,
         )
     );
-?>
 
-<?php
-    if (count($oldPetitions)) {
-?>
-        <article>
-            <header>
-                <h1><?= $this->translate('Liste des dernière pétitions'); ?></h1>
-            </header>
-<?php
-            foreach ($oldPetitions as $petition) {
-                echo $this->partial(
-                    'petition/petitions/petition.phtml', 
-                    array(
-                        'petition'         => $petition,
-                    )
-                );
-            }
-?>
-        </article>
-<?php
-    }
+    // Render old petitions article
+    echo $this->partial(
+        'petition/petitions/petitions.phtml',
+        array(
+            'title' => $this->translate("Liste des dernière pétitions"),
+            'petitions' => $oldPetitions
+        )
+    );
 ?>
 </section>

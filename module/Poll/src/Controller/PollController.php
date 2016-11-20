@@ -33,7 +33,7 @@ class PollController extends AbstractI18nActionController
         $poll = $this->pollTable->getPolls(array('id' => $pid, 'answers' => true));
 
         if (count($poll) !== 1) {
-            throw new \Exception($this->tr("Impossible de trouver le vote à l'ID $pid"));
+            $poll = null;
         } else {
             $poll = $poll[0];
         }

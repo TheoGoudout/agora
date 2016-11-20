@@ -1,29 +1,32 @@
 <?php
     $this->headTitle($petition->title);
 
+    // Initialize signature form
     $signatureForm->setAttribute('action', $this->url('signature', ['action' => 'add', 'pid' => $petition->id], [], true));
     $signatureForm->prepare();
 
+    // Initialize mailing list form
     $mailingListForm->setAttribute('action', $this->url('mailingList', ['action' => 'add', 'pid' => $petition->id], [], true));
     $mailingListForm->prepare();
 ?>
 <header class="hiddable">
-    <h1><?= $this->translate('Signez les pétitions qui vous intérèssent.'); ?></h1>
-    <p><?= $this->translate('Cette pétition vous intéresse? Signez là des maintenant!'); ?></p>
-    <p><?= $this->translate('Dans le cas ou une pétition a atteint les 500 000 signatures papiers, vous ne pourrez plus la signer. En revanche vous pouvez toujours vous inscrire à la newsletter de celle-ci afin de rester informé de son évolution.'); ?></p>
+    <h1><?= $this->translate("Signez les pétitions qui vous intérèssent."); ?></h1>
+    <p><?= $this->translate("Cette pétition vous intéresse? Signez là des maintenant!"); ?></p>
+    <p><?= $this->translate("Dans le cas ou une pétition a atteint les 500 000 signatures papiers, vous ne pourrez plus la signer. En revanche vous pouvez toujours vous inscrire à la newsletter de celle-ci afin de rester informé de son évolution."); ?></p>
 </header>
 <section>
     <?php
+        // Display petition as an article
         echo $this->partial(
-            'petition/petition/petition.phtml',
-            array('petition' => $petition)
+            'petition/petition/article.phtml',
+            array('petition' => $petition),
         );
-    ?>
-    <?php
+
+        // Display petition form
         echo $this->partial(
             'petition/petition/form.phtml',
             array(
-                'title' => $petition->title,
+                'title' => sprintf($this->translate("Signer la pétition '%s'"), $$petition->title),
                 'signatureForm' => $signatureForm,
                 'mailingListForm' => $mailingListForm,
             )

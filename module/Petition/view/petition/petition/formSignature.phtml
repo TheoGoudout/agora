@@ -1,0 +1,55 @@
+<?= $this->form()->openTag($form); ?>
+    <?= $this->formHidden($form->get('pid')); ?>
+    <fieldset>
+        <legend><?= $this->translate("Identité"); ?></legend>
+        <table>
+            <tr>
+                <td class="mandatory"><?= $this->formLabel($form->get('gender')); ?></td>
+                <td><span class="label-tab"><?= $this->formRadio($form->get('gender')); ?></span></td>
+            </tr>
+            <tr>
+                <td class="mandatory"><?= $this->formLabel($form->get('firstName')); ?></td>
+                <td><?= $this->FormText($form->get('firstName')); ?></td>
+            </tr>
+            <tr>
+                <td class="mandatory"><?= $this->formLabel($form->get('lastName')); ?></td>
+                <td><?= $this->FormText($form->get('lastName')); ?></td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend><?= $this->translate("Adresse"); ?></legend>
+        <table>
+            <tr>
+                <td class="mandatory"><?= $this->formLabel($form->get('address1')); ?></td>
+                <td><?= $this->FormText($form->get('address1')); ?></td>
+            </tr>
+            <tr>
+                <td><?= $this->formLabel($form->get('address2')); ?></td>
+                <td><?= $this->FormText($form->get('address2')); ?></td>
+            </tr>
+            <tr>
+                <td><?= $this->formLabel($form->get('address3')); ?></td>
+                <td><?= $this->FormText($form->get('address3')); ?></td>
+            </tr>
+            <tr>
+                <td class="mandatory"><?= $this->formLabel($form->get('zipCode')); ?></td>
+                <td><?= $this->FormText($form->get('zipCode')); ?></td>
+            </tr>
+            <tr>
+                <td class="mandatory"><?= $this->formLabel($form->get('city')); ?></td>
+                <td><?= $this->FormText($form->get('city')); ?></td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend><?= $this->translate("Valider"); ?></legend>
+        <div>
+            <span class="mandatory"><?= $this->formLabel($form->get('agreement')); ?></span>
+            <?= $this->FormCheckbox($form->get('agreement')); ?>
+        </div>
+        <div>
+            <?= $this->formSubmit($form->get('submit')); ?>
+        </div>
+    </fieldset>
+<?= $this->form()->closeTag(); ?>

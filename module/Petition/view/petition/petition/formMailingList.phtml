@@ -1,0 +1,13 @@
+<?= $this->form()->openTag($form); ?>
+    <?= $this->formHidden($form->get('pid')); ?>
+    <fieldset>
+        <legend><?= $this->translate("Newsletter"); ?></legend>
+        <div>
+            <?= $this->formLabel($form->get('email')); ?>
+        <div>
+        </div>
+            <?= $this->FormEmail($form->get('email')); ?>
+            <?= $this->formSubmit($form->get('submit')); ?>
+        </div>
+    </fieldset>
+<?= $this->form()->closeTag(); ?>

@@ -1,86 +1,42 @@
 <article>
     <div class="item">
         <header>
-            <h2><?= sprintf($this->translate('Signer la pétition "%s"'), $title); ?></h2>
+            <h2><?= $title; ?></h2>
         </header>
         <div class="tab">
-            <?= $this->form()->openTag($signatureForm); ?>
-                <?= $this->formHidden($signatureForm->get('pid')); ?>
-                <?php
-                    echo $this->partial(
-                        'petition/petition/formErrors.phtml',
-                        array(
-                            'signatureForm' => $signatureForm,
-                            'mailingListForm' => $mailingListForm,
-                        )
-                    );
-                ?>
-                <fieldset>
-                    <legend><?= $this->translate('Identité'); ?></legend>
-                    <table>
-                        <tr>
-                            <td class="mandatory"><?= $this->formLabel($signatureForm->get('gender')); ?></td>
-                            <td><span class="label-tab"><?= $this->formRadio($signatureForm->get('gender')); ?></span></td>
-                        </tr>
-                        <tr>
-                            <td class="mandatory"><?= $this->formLabel($signatureForm->get('firstName')); ?></td>
-                            <td><?= $this->FormText($signatureForm->get('firstName')); ?></td>
-                        </tr>
-                        <tr>
-                            <td class="mandatory"><?= $this->formLabel($signatureForm->get('lastName')); ?></td>
-                            <td><?= $this->FormText($signatureForm->get('lastName')); ?></td>
-                        </tr>
-                    </table>
-                </fieldset>
-                <fieldset>
-                    <legend><?= $this->translate('Adresse'); ?></legend>
-                    <table>
-                        <tr>
-                            <td class="mandatory"><?= $this->formLabel($signatureForm->get('address1')); ?></td>
-                            <td><?= $this->FormText($signatureForm->get('address1')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($signatureForm->get('address2')); ?></td>
-                            <td><?= $this->FormText($signatureForm->get('address2')); ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $this->formLabel($signatureForm->get('address3')); ?></td>
-                            <td><?= $this->FormText($signatureForm->get('address3')); ?></td>
-                        </tr>
-                        <tr>
-                            <td class="mandatory"><?= $this->formLabel($signatureForm->get('zipCode')); ?></td>
-                            <td><?= $this->FormText($signatureForm->get('zipCode')); ?></td>
-                        </tr>
-                        <tr>
-                            <td class="mandatory"><?= $this->formLabel($signatureForm->get('city')); ?></td>
-                            <td><?= $this->FormText($signatureForm->get('city')); ?></td>
-                        </tr>
-                    </table>
-                </fieldset>
-                <fieldset>
-                    <legend><?= $this->translate('Valider'); ?></legend>
-                    <div>
-                        <span class="mandatory"><?= $this->formLabel($signatureForm->get('agreement')); ?></span>
-                        <?= $this->FormCheckbox($signatureForm->get('agreement')); ?>
-                    </div>
-                    <div>
-                        <?= $this->formSubmit($signatureForm->get('submit')); ?>
-                    </div>
-                </fieldset>
-            <?= $this->form()->closeTag(); ?>
-            <?= $this->form()->openTag($mailingListForm); ?>
-                <?= $this->formHidden($mailingListForm->get('pid')); ?>
-                <fieldset>
-                    <legend><?= $this->translate('Newsletter'); ?></legend>
-                    <div>
-                        <?= $this->formLabel($mailingListForm->get('email')); ?>
-                    <div>
-                    </div>
-                        <?= $this->FormEmail($mailingListForm->get('email')); ?>
-                        <?= $this->formSubmit($mailingListForm->get('submit')); ?>
-                    </div>
-                </fieldset>
-                <p class="red">* <?= $this->translate('Champs obligatoires'); ?></p>
+<?php
+    // Display errors for signature form
+    echo $this->partial(
+        'petition/petition/formErrors.phtml',
+        array(
+            'form' => $signatureForm,
+        )
+    );
+
+    // Display errors for mailing list form
+    echo $this->partial(
+        'petition/petition/formErrors.phtml',
+        array(
+            'form' => $mailingListForm,
+        )
+    );
+
+    // Display signature form
+    echo $this->partial(
+        'petition/petition/formSignature.phtml',
+        array(
+            'form' => $signatureForm,
+        )
+    );
+
+    // Display mailing list form
+    echo $this->partial(
+        'petition/petition/formMailingList.phtml',
+        array(
+            'form' => $mailingListForm,
+        )
+    );
+            <p class="red">* <?= $this->translate("Champs obligatoires"); ?></p>
         </div>
     </div>
 </article>
