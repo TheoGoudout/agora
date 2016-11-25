@@ -2,6 +2,9 @@
 composer.phar
 vendor/
 
+# Deployment script files
+servers.yml
+
 # Local configs
 config/autoload/*.local.php
 

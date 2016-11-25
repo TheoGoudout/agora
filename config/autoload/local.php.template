@@ -1,0 +1,23 @@
+<?php
+/**
+ * Local Configuration Override.
+ *
+ * This configuration override file is for providing configuration to use while
+ * in release mode.
+ */
+
+return [
+    'db' => [
+        'driver' => 'Pdo',
+        'dsn'    => '@@DSN@@',
+        'driver_options' => array(
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+        ),
+
+        'username' => '@@USERNAME@@',
+        'password' => '@@PASSWORD@@',
+    ],
+    'view_manager' => [
+        'display_exceptions' => true,
+    ],
+];
