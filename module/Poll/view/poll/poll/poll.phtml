@@ -1,3 +1,15 @@
+<?php
+    if ($poll === null || $displayIfEmpty === true) {
+?>
+<article>
+    <header>
+        <h1><?= $this->translate('Aucun vote disponible'); ?></h1>
+    </header>
+    <p><?= $this->translate('Le vote que vous cherchez n\'existe pas.'); ?></p>
+</article>
+<?php
+    } else {
+?>
 <article>
     <a href="<?= $this->url('poll', ['action' => 'index', 'pid' => $poll->id], [], true) ?>">
         <header>
@@ -8,14 +20,15 @@
         </header>
     </a>
 <?php
-    foreach ($poll->answers as $answer) {
-        echo $this->partial(
-            'poll/poll/pollAnswer.phtml',
-            array(
-                'answer'         => $answer,
-                'totalVoteCount' => $poll->voteCount
-            )
-        );
+        foreach ($poll->answers as $answer) {
+            echo $this->partial(
+                'poll/poll/pollAnswer.phtml',
+                array(
+                    'answer'         => $answer,
+                    'totalVoteCount' => $poll->voteCount
+                )
+            );
+        }
     }
 ?>
 </article>

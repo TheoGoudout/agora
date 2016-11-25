@@ -8,21 +8,12 @@
 </header>
 <section>
 <?php
-    if ($poll === null)
-    {
-?>
-    <article>
-        <header>
-            <h1><?= $this->translate('Aucun vote disponible'); ?></h1>
-        </header>
-        <p><?= $this->translate('Le vote que vous cherchez n\'existe pas.'); ?></p>
-    </article>
-<?php
-    } else {
-    	echo $this->partial(
-    		'poll/poll/poll.phtml',
-    		array('poll' => $poll)
-    	);
-    }
+    echo $this->partial(
+        'poll/poll/poll.phtml',
+        array(
+            'poll' => $poll,
+            'displayIfEmpty' => $displayIfEmpty,
+        )
+    );
 ?>
 </section>
