@@ -9,7 +9,7 @@ This list will evolve.
 [X] CRITICAL   - Display a list of the latest petitions
 [ ] CRITICAL   - Define petition statuses and transition diagram 
 [ ] IMPORTANT  - Redo general design
-[ ] IMPORTANT  - Deployment script
+[X] IMPORTANT  - Deployment script
 [ ] IMPORTANT  - Write unit tests
 [ ] IMPORTANT  - Hide/format error messages
 [ ] IMPORTANT  - Responsive design
