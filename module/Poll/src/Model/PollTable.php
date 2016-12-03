@@ -48,10 +48,9 @@ class PollTable extends I18nModel
 
         // Check special id
         if (isset($params['id']) && $params['id'] == 'latest') {
+            $param['limit'] = 1;
             $select
-                ->limit(1)
-                ->where
-                    ->lessThanOrEqualTo('p.startDate', new \Zend\Db\Sql\Expression('CURRENT_TIMESTAMP'));
+                ->where->lessThanOrEqualTo('p.startDate', new \Zend\Db\Sql\Expression('CURRENT_TIMESTAMP'));
         }
 
         // Check limit

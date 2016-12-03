@@ -1,7 +1,7 @@
 <?php
     $signatureCount = $petition->signatureCount ? $petition->signatureCount : 0;
 
-    if ($petition->latestStatus === "En attente d'e-signatures") {
+    if ($petition->latestStatus === "WAITING E-SIGNATURES") {
 ?>
 <progress max="500000" value="<?= $signatureCount; ?>"></progress>
 <span class="count"><?= sprintf($this->translate("%s e-signatures"), $signatureCount); /* TODO : format */ ?></span>

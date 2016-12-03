@@ -37,7 +37,9 @@ class PetitionTable extends I18nModel
     protected function getPetitionsFromSelect(array $params, Select $select)
     {
         // Always order by lastModified
-        $select->order('p.lastModified DESC');
+        $select
+            ->order('p.lastModified DESC')
+            ->where('latestStatus IS NOT NULL');
 
         // Check id
         $id = isset($params['id']) ? (int)$params['id'] : 0;
@@ -47,9 +49,9 @@ class PetitionTable extends I18nModel
 
         // Check special id
         if (isset($params['id']) && $params['id'] == 'latest') {
+            $params['limit'] = '1';
             $select
-                ->limit(1)
-                ->where->lessThanOrEqualTo('p.lastModified', 'CURRENT_TIMESTAMP');
+                ->where->lessThanOrEqualTo('p.lastModified', new \Zend\Db\Sql\Expression('CURRENT_TIMESTAMP'));
         }
 
         // Check limit
@@ -80,88 +82,75 @@ class PetitionTable extends I18nModel
 
     public function getPetitions(array $params = array())
     {
-        $subselect = null;
-        $columns = array();
+        // Select the latest non NULL status available for each petition
+        $statusSelect = new Select();
+        $statusSelect
+            ->from(array('t1' => 'PetitionStatus'))
+            ->columns(array(
+                'pid',
+                'latestStatus' => 'content',
+                'latestStatusDate' => 'date'
+            ))
+            ->join(
+                array('t2' => 'PetitionStatus'),
+                '(t1.pid = t2.pid AND t1.date < t2.date) OR (t1.pid = t2.pid AND t1.date = t2.date AND t1.id < t2.id)',
+                array(),
+                $statusSelect::JOIN_LEFT
+            )
+            ->where(array(new \Zend\Db\Sql\Predicate\IsNull('t2.pid')));
 
-        if (!array_key_exists('status', $params)) {
-            $subselect = new Select();
-            $subselect
-                ->from(array('t1' => 'PetitionStatus'))
-                ->columns(array(
-                    'pid',
-                    'latestStatus' => 'content',
-                    'latestStatusDate' => 'date'
-                ))
-                ->join(
-                    array('t2' => 'PetitionStatus'),
-                    '(t1.pid = t2.pid AND t1.date < t2.date) OR (t1.date = t2.date AND t1.id < t2.id)',
-                    array(),
-                    $subselect::JOIN_LEFT
-                )
-                ->where(array(new \Zend\Db\Sql\Predicate\IsNull('t2.pid')));
+        $columns = array('latestStatus', 'latestStatusDate');
 
-            $columns = array('latestStatus', 'latestStatusDate');
-        }
+        // Select the petition IDs
+        $petitionSelect = new Select();
+        $petitionSelect
+            ->from(array('p' => 'Petition'))
+            ->columns(array('id'))
+            ->join(array('s' => $statusSelect), 'p.id = s.pid', $columns, $petitionSelect::JOIN_LEFT);
 
-        if (!array_key_exists('signature', $params)) {
-            $subsubselect = null;
-            if ($subselect !== null) {
-                $subsubselect = $subselect;
-            }
+        array_push($columns, 'id');
 
-            $subselect = new Select();
-            $subselect
-                ->from(array('sig' => 'PetitionSignature'))
-                ->columns(
-                    array('pid', 'signatureCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(sig.id),0)'))
-                )
-                ->group(array_merge(
-                    $columns,
-                    array('pid')
-                ));
 
-            if ($subsubselect !== null) {
-                $subselect
-                    ->join(array('s1' => $subsubselect), 's1.pid = sig.pid', $columns, $subselect::JOIN_LEFT);
-            }
+        // Select the number of signature per petition
+        $signatureSelect = new Select();
+        $signatureSelect
+            ->from(array('sig' => 'PetitionSignature'))
+            ->columns(
+                array('signatureCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(sig.id),0)'))
+            )
+            ->group(array(
+                'sig.pid',
+                'p.latestStatus',
+                'p.latestStatusDate',
+                'p.id'
+            ))
+            ->join(array('p' => $petitionSelect), 'p.id = sig.pid', $columns, $signatureSelect::JOIN_RIGHT);
 
-            array_push($columns, 'signatureCount');
-        }
+        array_push($columns, 'signatureCount');
 
-        if (!array_key_exists('mailingList', $params)) {
-            $subsubselect = null;
-            if ($subselect !== null) {
-                $subsubselect = $subselect;
-            }
 
-            $subselect = new Select();
-            $subselect
-                ->from(array('m' => 'PetitionMailingList'))
-                ->columns(
-                    array('pid', 'mailingListCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(m.id),0)'))
-                )
-                ->group(array_merge(
-                    $columns,
-                    array('pid')
-                ));
+        // Select the number of mailing list per petition
+        $mailingListSelect = new Select();
+        $mailingListSelect
+            ->from(array('m' => 'PetitionMailingList'))
+            ->columns(
+                array('mailingListCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(m.id),0)'))
+            )
+            ->group(array(
+                'm.pid',
+                'p.latestStatus',
+                'p.latestStatusDate',
+                'p.id'
+            ))
+            ->join(array('p' => $signatureSelect), 'p.id = m.pid', $columns, $mailingListSelect::JOIN_RIGHT);
 
-            if ($subsubselect !== null) {
-                $subselect
-                    ->join(array('sig1' => $subsubselect), 'sig1.pid = m.pid', $columns, $subselect::JOIN_LEFT);
-            }
-
-            array_push($columns, 'mailingListCount');
-        }
+        array_push($columns, 'mailingListCount');
 
         $select = new Select();
         $select
             ->from(array('p' => 'Petition'))
-            ->columns(array('*'));
-
-        if ($subselect !== null) {
-            $select
-                ->join(array('m1' => $subselect), 'm1.pid = p.id', $columns, $select::JOIN_LEFT);
-        }
+            ->columns(array('*'))
+            ->join(array('p1' => $mailingListSelect), 'p.id = p1.id', $columns, $select::JOIN_RIGHT);
 
         $results = $this->getPetitionsFromSelect($params, $select);
 

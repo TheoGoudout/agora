@@ -19,14 +19,14 @@
         // Display petition as an article
         echo $this->partial(
             'petition/petition/article.phtml',
-            array('petition' => $petition),
+            array('petition' => $petition)
         );
 
         // Display petition form
         echo $this->partial(
             'petition/petition/form.phtml',
             array(
-                'title' => sprintf($this->translate("Signer la pétition '%s'"), $$petition->title),
+                'title' => sprintf($this->translate("Signer la pétition '%s'"), $petition->title),
                 'signatureForm' => $signatureForm,
                 'mailingListForm' => $mailingListForm,
             )

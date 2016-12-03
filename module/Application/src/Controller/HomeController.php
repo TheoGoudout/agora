@@ -34,14 +34,13 @@ class HomeController extends AbstractI18nActionController
 
     public function indexAction()
     {
-        $latestPoll     = $this->pollTable->getPolls(array('id' => 'latest', 'answers' => array('limit' => 3)));
-        $latestPetition = $this->petitionTable->getPetitions(array('id' => 'latest'));
-        $oldPetitions   = $this->petitionTable->getPetitions(array('limit' => 5, 'offset' => 1));
+        $latestPoll = $this->pollTable->getPolls(array('id' => 'latest', 'answers' => array('limit' => 3)));
+        $petitions  = $this->petitionTable->getPetitions(array('limit' => 4));
 
-        if (count($latestPetition) !== 1) {
-            $latestPetition = null;
-        } else {
-            $latestPetition = $latestPetition[0];
+        $latestPetition = null;
+        if (count($petitions) > 0) {
+            $latestPetition = $petitions[0];
+            array_shift($petitions);
         }
 
         if (count($latestPoll) !== 1) {
@@ -53,7 +52,7 @@ class HomeController extends AbstractI18nActionController
         return new ViewModel(array(
             'latestPoll'     => $latestPoll,
             'latestPetition' => $latestPetition,
-            'oldPetitions'   => $oldPetitions,
+            'oldPetitions'   => $petitions,
         ));
     }
 
