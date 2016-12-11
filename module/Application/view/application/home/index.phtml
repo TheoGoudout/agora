@@ -11,7 +11,7 @@
         'petition/petitions/petitions.phtml',
         array(
             'title' => $this->translate("Dernière pétition publiée"),
-            'petitions' => array($latestPetition),
+            'petitions' => $latestPetition ? array($latestPetition) : null,
             'displayIfEmpty' => true,
         )
     );
