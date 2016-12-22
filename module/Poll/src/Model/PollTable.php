@@ -48,7 +48,7 @@ class PollTable extends I18nModel
 
         // Check special id
         if (isset($params['id']) && $params['id'] == 'latest') {
-            $param['limit'] = 1;
+            $params['limit'] = 1;
             $select
                 ->where->lessThanOrEqualTo('p.startDate', new \Zend\Db\Sql\Expression('CURRENT_TIMESTAMP'));
         }
@@ -81,38 +81,49 @@ class PollTable extends I18nModel
 
     public function getPolls($params)
     {
-        // Get vote count
-        $subsubselect = new Select();
-        $subsubselect
+        // Select the poll IDs
+        $pollSelect = new Select();
+        $pollSelect
+            ->from(array('p' => 'Poll'))
+            ->columns(array('id'));
+
+        $columns = array('id');
+
+
+        // Select the number of vote per petition
+        $voteSelect = new Select();
+        $voteSelect
             ->from(array('v' => 'PollVote'))
             ->columns(
-                array('pid', 'voteCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(v.id),0)'))
+                array('voteCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(v.id),0)'))
             )
-            ->group(array('pid'));
+            ->group(array('v.pid', 'p.id'))
+            ->join(array('p' => $pollSelect), 'p.id = v.pid', $columns, $voteSelect::JOIN_RIGHT);
 
-        // Get answer count
-        $subselect = new Select();
-        $subselect
+        array_push($columns, 'voteCount');
+
+        
+        // Select the number of answer per petition
+        $answerSelect = new Select();
+        $answerSelect
             ->from(array('a' => 'PollAnswer'))
             ->columns(
-                array('pid', 'answerCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(a.id),0)'))
+                array('answerCount' => new \Zend\Db\Sql\Expression('IFNULL(COUNT(a.id),0)'))
             )
-            ->group(array(
-                'voteCount',
-                'pid',
-            ))
-            ->join(array('v1' => $subsubselect), 'v1.pid = a.pid', array('voteCount'), $subselect::JOIN_LEFT);
+            ->group(array('a.pid', 'p.id'))
+            ->join(array('p' => $voteSelect), 'p.id = a.pid', $columns, $answerSelect::JOIN_RIGHT);
 
-        // Get Poll
+        array_push($columns, 'answerCount');
+
+
+        // Select the other columns in petition table
         $select = new Select();
         $select
             ->from(array('p' => 'Poll'))
             ->columns(array('*'))
-            ->join(array('a1' => $subselect), 'a1.pid = p.id', array('voteCount', 'answerCount'), $select::JOIN_LEFT);
-
+            ->join(array('p1' => $answerSelect), 'p.id = p1.id', $columns, $select::JOIN_RIGHT);
 
         $results = $this->getPollsFromSelect($params, $select);
-
 
         foreach ($results as $result) {
             if (isset($params['answers']) && $params['answers']) {
