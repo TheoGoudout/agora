@@ -9,7 +9,7 @@
         </header>
     </a>
     <div class="tab">
-        <progress max="<?= $totalVoteCount; ?>" value="<?= $answer->voteCount; ?>"></progress>
-        <span class="count"><?= sprintf($this->translate('%s votes'), $answer->voteCount ? $answer->voteCount : 0); /* TODO : format */ ?></span>
+        <progress max="<?= $totalVoteCount; ?>" value="<?= $answer->voteCount ?? 0; ?>"></progress>
+        <span class="count"><?= sprintf($this->translate('%s votes'), $answer->voteCount ?? 0); /* TODO : format */ ?></span>
     </div>
 </div>
